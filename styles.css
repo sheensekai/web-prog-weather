@@ -1,0 +1,30 @@
+.wtr-city-name {
+    display: inline;
+    margin: 0;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+.wtr-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wtr-val {
+    background-color: #9EA7A9;
+    margin-top: 5px;
+    padding: 5px 10px;
+}
+
+.wtr-val-name {
+    font-weight: bold;
+    color: white;
+}
+
+.wtr-val-val {
+    float: right;
+    color: #f1f1f1;
+}
