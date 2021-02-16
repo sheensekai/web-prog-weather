@@ -1,3 +1,26 @@
+#wtr-block {
+    margin: 0 20px;
+}
+
+#wtr-block-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.wtr-block-header {
+}
+
+.wtr-block-header-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.wtr-block {
+    width: 500px;
+    margin: 10px 0;
+}
+
 .wtr-city-name {
     display: inline;
     margin: 0;
