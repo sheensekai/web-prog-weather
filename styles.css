@@ -3,11 +3,18 @@ h1, h2, h3 {
     margin: 0;
 }
 
+body {
+    font-family: Hack, sans-serif;
+}
+
 main {
     width: 80%;
     margin: 0 auto;
 }
 
+.wtr-list {
+    
+}
 
 .wtr-block-list, #wtr-loc-block, #wtr-loc-preheader {
     display: flex;
@@ -26,7 +33,7 @@ main {
 
 .wtr-block {
     width: 500px;
-    margin: 10px 10px;
+    margin: 20px 10px;
 }
 
 .wtr-city-name {
@@ -39,10 +46,27 @@ ul {
 }
 
 .wtr-header {
+    height: 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
+.wtr-temp {
+    color: #7b7b7b;
+    font-size: 25px;
+}
+
+.wtr-city-name {
+    color: #748489;
+    font-size: 20px;
+}
+
+.close {
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+}
 
 .wtr-val {
     background-color: #9EA7A9;
