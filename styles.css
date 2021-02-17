@@ -17,7 +17,35 @@ header .wtr-list {
     margin-bottom: 20px;
 }
 
+#wtr-main .wtr-city-name {
+    font-size: 35px;
+}
 
+img {
+    border: 4px black double;
+}
+
+.wtr-icon {
+    width: fit-content;
+    height: 80%;
+}
+
+#wtr-main img {
+    display: inline-block;
+    width: 30%;
+    height: 100px;
+}
+
+.main-block {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.main-block .wtr-temp {
+    margin: auto;
+    font-size: 90px;
+}
 
 .wtr-list {
     display: flex;
@@ -49,6 +77,14 @@ button {
 .wtr-cls-btn {
     font-size: 22px;
     line-height: 20px;
+    cursor: pointer;
+}
+
+.func-btn {
+    background-color: #9EA7A9;
+    border-radius: 2px;
+    height: 120%;
+    width: 200px;
     cursor: pointer;
 }
 
