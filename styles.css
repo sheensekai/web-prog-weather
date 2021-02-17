@@ -1,14 +1,22 @@
-#wtr-block {
-    margin: 0 20px;
+h1, h2, h3 {
+    display: inline;
+    margin: 0;
 }
 
-#wtr-block-list {
+main {
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+.wtr-block-list, #wtr-loc-block, #wtr-loc-preheader {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-.wtr-block-header {
+#button-block .wtr-del-button {
+    float: right;
 }
 
 .wtr-block-header-buttons {
@@ -18,11 +26,10 @@
 
 .wtr-block {
     width: 500px;
-    margin: 10px 0;
+    margin: 10px 10px;
 }
 
 .wtr-city-name {
-    display: inline;
     margin: 0;
 }
 
@@ -35,6 +42,7 @@ ul {
     display: flex;
     justify-content: space-between;
 }
+
 
 .wtr-val {
     background-color: #9EA7A9;
