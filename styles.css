@@ -7,37 +7,27 @@ body {
     font-family: Hack, sans-serif;
 }
 
-main {
+header, main {
     width: 80%;
     margin: 0 auto;
 }
 
-.wtr-list {
-    
+header .wtr-list {
+    height: 30px;
+    margin-bottom: 20px;
 }
 
-.wtr-block-list, #wtr-loc-block, #wtr-loc-preheader {
+
+
+.wtr-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-#button-block .wtr-del-button {
-    float: right;
-}
-
-.wtr-block-header-buttons {
-    display: flex;
-    justify-content: flex-end;
-}
-
 .wtr-block {
     width: 500px;
     margin: 20px 10px;
-}
-
-.wtr-city-name {
-    margin: 0;
 }
 
 ul {
@@ -52,34 +42,44 @@ ul {
     align-items: center;
 }
 
-.wtr-temp {
-    color: #7b7b7b;
-    font-size: 25px;
+button {
+    float: right;
 }
 
-.wtr-city-name {
-    color: #748489;
-    font-size: 20px;
-}
-
-.close {
+.wtr-cls-btn {
     font-size: 22px;
     line-height: 20px;
     cursor: pointer;
 }
 
-.wtr-val {
+.wtr-temp {
+    color: #7b7b7b;
+    font-size: 25px;
+}
+
+.wtr-header {
+    color: #a7a6ac;
+}
+
+.wtr-city-name {
+    margin: 0;
+    color: #748489;
+    font-size: 20px;
+}
+
+.feat-name {
+    font-weight: bold;
+    color: white;
+}
+
+.feat-cont {
     background-color: #9EA7A9;
     margin-top: 5px;
     padding: 5px 10px;
 }
 
-.wtr-val-name {
-    font-weight: bold;
-    color: white;
-}
 
-.wtr-val-val {
+.feat-val {
     float: right;
     color: #f1f1f1;
 }
