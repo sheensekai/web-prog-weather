@@ -22,12 +22,12 @@ header .wtr-list {
 }
 
 img {
-    border: 4px black double;
+    /*border: 4px black double;*/
 }
 
 .wtr-icon {
-    width: fit-content;
-    height: 80%;
+    /*width: fit-content;*/
+    /*height: 80%;*/
 }
 
 #wtr-main img {
@@ -64,7 +64,8 @@ ul {
 }
 
 .wtr-header {
-    height: 30px;
+    height: fit-content;
+    min-height: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
