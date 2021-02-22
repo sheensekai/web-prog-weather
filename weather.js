@@ -38,6 +38,23 @@ function currentPositionError() {
     });
 }
 
-navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
-    enableHighAccuracy: true
-})
+function addSampleWeatherBlock() {
+    const property = {name: "Ветер", value: "Moderate breeze, 6.0 m/s, North-northwest"};
+    let propertyList = []
+    for (let i = 0; i < 5; ++i) {
+        propertyList.push(JSON.parse(JSON.stringify(property)));
+    }
+    const weatherBlock = makeWeatherBlock("Moscow", 5,
+        "img/icon-set/PNG/50x50/cloudy.png", propertyList);
+    addWeatherBlockInList(weatherBlock);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const buttonId = "add-city-btn";
+    const button = document.getElementById(buttonId);
+    button.onclick = addSampleWeatherBlock;
+});
+
+// navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
+//     enableHighAccuracy: true
+// })

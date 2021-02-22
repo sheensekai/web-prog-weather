@@ -4,7 +4,7 @@ function makeWeatherProperty(name, value) {
     paramNameObj.innerText = name;
 
     const paramValueObj = document.createElement("span");
-    paramNameObj.className = "feat-val";
+    paramValueObj.className = "feat-val";
     paramValueObj.innerText = value;
 
     const container = document.createElement("div");
@@ -16,7 +16,8 @@ function makeWeatherProperty(name, value) {
 
 function makeWeatherPropertyList(properties) {
     const propList = document.createElement("ul");
-    for (let prop of properties) {
+    for (let i = 0; i < properties.length; ++i) {
+        let prop = properties[i];
         let propElem = makeWeatherProperty(prop.name, prop.value);
         propList.appendChild(propElem);
     }
@@ -39,7 +40,7 @@ function makeWeatherBlockHeader(cityName, tempVal, imgSrc) {
 
     const button = document.createElement("button");
     button.className = "wtr-cls-btn";
-    button.innerText = "&times;"
+    button.innerText = "×";
 
     const header = document.createElement("div");
     header.className = "wtr-header";
@@ -47,6 +48,7 @@ function makeWeatherBlockHeader(cityName, tempVal, imgSrc) {
     header.appendChild(temp);
     header.appendChild(img);
     header.appendChild(button);
+
     return header;
 }
 
@@ -58,5 +60,24 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     weatherBlock.className = "wtr-block";
     weatherBlock.appendChild(header);
     weatherBlock.appendChild(propList);
+
+    const button = header.getElementsByTagName("button")[0];
+    button.onclick = function() {
+        const parent = weatherBlock.parentElement;
+        if (parent != null) {
+            parent.removeChild(weatherBlock);
+        }
+    }
+
     return weatherBlock;
+}
+
+function addWeatherBlockInList(weatherBlock) {
+    const list = document.getElementById("wtr-blocks-cont");
+    list.appendChild(weatherBlock);
+}
+
+function removeWeatherBlockFromList(weatherBlock) {
+    const list = document.getElementById("wtr-blocks-cont");
+    list.removeChild(weatherBlock);
 }
