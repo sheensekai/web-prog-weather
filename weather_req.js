@@ -46,9 +46,20 @@ function getWeatherStateFromResponse(response) {
     }
     return {
         "temp": response.main.temp,
+        "feels_like": response.main.feels_like,
         "wind": response.wind.speed,
         "clouds": response.clouds.all,
         "pressure": response.main.pressure,
         "humidity": response.main.humidity
     };
+}
+
+function getRuPropertyListFromState(state) {
+    const weatherProperties = [];
+    weatherProperties.push({name: "Ощущается как", value: state.feels_like + " °C"});
+    weatherProperties.push({name: "Ветер", value: state.wind + " м/c"});
+    weatherProperties.push({name: "Облачность", value: state.clouds + "%"});
+    weatherProperties.push({name: "Давление", value: state.pressure + " гПа"});
+    weatherProperties.push({name: "Влаженость", value: state.humidity + "%"});
+    return weatherProperties;
 }
