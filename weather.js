@@ -1,13 +1,3 @@
-function getWeatherStateFromResponse(response) {
-    return {
-        "temp": response.main.temp,
-        "wind": response.wind.speed,
-        "clouds": response.clouds.all,
-        "pressure": response.main.pressure,
-        "humidity": response.main.humidity
-    };
-}
-
 function currentPositionSuccess(position) {
     const source = {
         byCity: false,
@@ -40,10 +30,40 @@ function currentPositionError() {
 
 function addCityButtonClick() {
     const cityNameInput = document.getElementById("city-name-input");
-    console.log(cityNameInput.value);
+    const cityName = cityNameInput.value;
     cityNameInput.value = "";
+    addCityWithRequest(cityName);
+}
 
-    addSampleWeatherBlock();
+function addCityWithRequest(cityName) {
+    const source = {
+        byCity: true,
+        cityName: cityName
+    }
+    const xhr = makeSourceWeatherRequest(source);
+    sendWeatherRequest(xhr, function() {
+        const state = getWeatherStateFromResponse(xhr.response);
+        if (state !== null) {
+            addWeatherBlockFromState(cityName, state);
+        }
+    });
+}
+
+const def_imgSrc = "img/icon-set/PNG/50x50/cloudy.png";
+const def_cityName = "Moscow";
+const def_temp = 5;
+
+function addWeatherBlockFromState(cityName, state) {
+    const weatherProperties = [];
+    for (let propName in state) {
+        if (propName === "temp") {
+            continue;
+        }
+        let value = state[propName];
+        weatherProperties.push({name: propName, value: value});
+    }
+    const weatherBlock = makeWeatherBlock(cityName, state.temp, def_imgSrc, weatherProperties);
+    addWeatherBlockInList(weatherBlock);
 }
 
 function addSampleWeatherBlock() {
@@ -52,8 +72,8 @@ function addSampleWeatherBlock() {
     for (let i = 0; i < 5; ++i) {
         propertyList.push(JSON.parse(JSON.stringify(property)));
     }
-    const weatherBlock = makeWeatherBlock("Moscow", 5,
-        "img/icon-set/PNG/50x50/cloudy.png", propertyList);
+    const weatherBlock = makeWeatherBlock(def_cityName, def_temp,
+        def_imgSrc, propertyList);
     addWeatherBlockInList(weatherBlock);
 }
 

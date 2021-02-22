@@ -62,13 +62,7 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     weatherBlock.appendChild(propList);
 
     const button = header.getElementsByTagName("button")[0];
-    button.onclick = function() {
-        const parent = weatherBlock.parentElement;
-        if (parent != null) {
-            parent.removeChild(weatherBlock);
-        }
-    }
-
+    button.onclick = () => removeWeatherBlockFromList(weatherBlock);
     return weatherBlock;
 }
 

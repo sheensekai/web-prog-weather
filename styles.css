@@ -105,6 +105,7 @@ button {
 }
 
 .feat-name {
+    text-transform: capitalize;
     font-weight: bold;
     color: white;
     clear: both;

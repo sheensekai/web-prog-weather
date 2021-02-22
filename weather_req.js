@@ -1,9 +1,9 @@
 function makeWeatherRequest(params, func, async = true,) {
+    const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric";
     const xhr = new XMLHttpRequest();
     const api_key = "34e35a1d80msh1acf606c8def3adp132cbbjsn7f1eb5c439c4";
     const host = "community-open-weather-map.p.rapidapi.com";
     const method = "GET";
-    const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params;
 
     xhr.onload = func;
     xhr.responseType = "json";
@@ -38,4 +38,17 @@ function sendWeatherRequest(xhr, func) {
         }
     }
     xhr.send();
+}
+
+function getWeatherStateFromResponse(response) {
+    if (response === null) {
+        return null;
+    }
+    return {
+        "temp": response.main.temp,
+        "wind": response.wind.speed,
+        "clouds": response.clouds.all,
+        "pressure": response.main.pressure,
+        "humidity": response.main.humidity
+    };
 }
