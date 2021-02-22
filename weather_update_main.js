@@ -35,6 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
-    enableHighAccuracy: true
-});
+// navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
+//     enableHighAccuracy: true
+// });
