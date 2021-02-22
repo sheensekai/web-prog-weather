@@ -38,6 +38,14 @@ function currentPositionError() {
     });
 }
 
+function addCityButtonClick() {
+    const cityNameInput = document.getElementById("city-name-input");
+    console.log(cityNameInput.value);
+    cityNameInput.value = "";
+
+    addSampleWeatherBlock();
+}
+
 function addSampleWeatherBlock() {
     const property = {name: "Ветер", value: "Moderate breeze, 6.0 m/s, North-northwest"};
     let propertyList = []
@@ -52,7 +60,7 @@ function addSampleWeatherBlock() {
 document.addEventListener("DOMContentLoaded", function() {
     const buttonId = "add-city-btn";
     const button = document.getElementById(buttonId);
-    button.onclick = addSampleWeatherBlock;
+    button.onclick = addCityButtonClick;
 });
 
 // navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
