@@ -2,7 +2,9 @@ function getWeatherStateFromResponse(response) {
     return {
         "temp": response.main.temp,
         "wind": response.wind.speed,
-        "clouds": response.clouds.all
+        "clouds": response.clouds.all,
+        "pressure": response.main.pressure,
+        "humidity": response.main.humidity
     };
 }
 
