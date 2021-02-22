@@ -13,17 +13,13 @@ function addSampleWeatherBlock() {
     addWeatherBlockInList(weatherBlock);
 }
 
-function addCityWithRequest(cityName) {
-    const source = {
-        byCity: true,
-        cityName: cityName
-    }
+function addCityWithRequest(source) {
     const xhr = makeSourceWeatherRequest(source);
     sendWeatherRequest(xhr, function() {
         const state = getWeatherStateFromResponse(xhr.response);
         if (state !== null) {
             const weatherProperties = getRuPropertyListFromState(state);
-            const weatherBlock = makeWeatherBlock(cityName, state.temp, def_imgSrc, weatherProperties);
+            const weatherBlock = makeWeatherBlock(state.cityName, state.temp, def_imgSrc, weatherProperties);
             addWeatherBlockInList(weatherBlock);
         }
     });
@@ -33,7 +29,8 @@ function addCityButtonClick() {
     const cityNameInput = document.getElementById("city-name-input");
     const cityName = cityNameInput.value;
     cityNameInput.value = "";
-    addCityWithRequest(cityName);
+    const source = {byCity: true, cityName: cityName};
+    addCityWithRequest(source);
 }
 
 document.addEventListener("DOMContentLoaded", function() {

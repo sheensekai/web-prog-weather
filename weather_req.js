@@ -45,6 +45,7 @@ function getWeatherStateFromResponse(response) {
         return null;
     }
     return {
+        "cityName": response.name,
         "temp": response.main.temp,
         "feels_like": response.main.feels_like,
         "wind": response.wind.speed,

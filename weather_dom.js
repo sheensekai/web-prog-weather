@@ -16,6 +16,7 @@ function makeWeatherProperty(name, value) {
 
 function makeWeatherPropertyList(properties) {
     const propList = document.createElement("ul");
+    propList.className = "feat-list";
     for (let i = 0; i < properties.length; ++i) {
         let prop = properties[i];
         let propElem = makeWeatherProperty(prop.name, prop.value);
@@ -34,7 +35,6 @@ function makeWeatherBlockHeader(cityName, tempVal, imgSrc) {
     temp.innerText = tempVal + "°C";
 
     const img = document.createElement("img");
-    img.className = "wtr-icon";
     img.setAttribute("alt", "Иконка погоды");
     img.setAttribute("src", imgSrc);
 
@@ -66,6 +66,48 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     return weatherBlock;
 }
 
+function makeMainWeatherBlockHeader(cityName, tempVal, imgSrc) {
+    const city = document.createElement("h2");
+    city.className = "wtr-city-name";
+    city.innerText = cityName;
+
+    const temp = document.createElement("span");
+    temp.className = "wtr-temp";
+    temp.innerText = tempVal + "°C";
+
+    const img = document.createElement("img");
+    img.className = "wtr-icon";
+    img.setAttribute("alt", "Иконка погоды");
+    img.setAttribute("src", imgSrc);
+
+    const mainSubBlock = document.createElement("div");
+    mainSubBlock.className = "main-block";
+    mainSubBlock.appendChild(img);
+    mainSubBlock.appendChild(temp);
+
+    const header = document.createElement("div");
+    header.id = "wtr-main";
+    header.className = "wtr-block";
+    header.appendChild(city);
+    header.appendChild(mainSubBlock);
+    return header;
+}
+
+function makeMainWeatherBlock(cityName, tempVal, imgSrc, properties) {
+    const header = makeMainWeatherBlockHeader(cityName, tempVal, imgSrc);
+    const propList = makeWeatherPropertyList(properties);
+    const listContainer = document.createElement("div");
+    listContainer.className = "wtr-block";
+    listContainer.appendChild(propList);
+
+    const mainBlock = document.createElement("div");
+    mainBlock.className = "wtr-list";
+    mainBlock.id = "wtr-main-block";
+    mainBlock.appendChild(header);
+    mainBlock.appendChild(listContainer);
+    return mainBlock;
+}
+
 function addWeatherBlockInList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     list.appendChild(weatherBlock);
@@ -74,4 +116,22 @@ function addWeatherBlockInList(weatherBlock) {
 function removeWeatherBlockFromList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     list.removeChild(weatherBlock);
+}
+
+function addMainWeatherBlock(weatherBlock) {
+    const htmlHeader = document.getElementsByTagName("header")[0];
+    htmlHeader.appendChild(weatherBlock);
+}
+
+function removeMainWeatherBlock(weatherBlock) {
+    const htmlHeader = document.getElementsByTagName("header")[0];
+    htmlHeader.removeChild(weatherBlock);
+}
+
+function updateMainWeatherBlock(weatherBlock) {
+    const foundBlock = document.getElementById("wtr-main-block");
+    if (foundBlock !== null) {
+        removeMainWeatherBlock(foundBlock);
+    }
+    addMainWeatherBlock(weatherBlock);
 }
