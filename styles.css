@@ -3,8 +3,8 @@ h1, h2, h3 {
     margin: 0;
 }
 
-body {
-    font-family: Hack, sans-serif;
+body, button, input {
+    font-family: Verdana, sans-serif;
 }
 
 header, main {
@@ -31,7 +31,7 @@ img {
 
 #wtr-main img {
     display: inline-block;
-    width: 30%;
+    width: 100px;
     height: 100px;
 }
 
@@ -42,8 +42,8 @@ img {
 }
 
 .main-block .wtr-temp {
-    margin: auto;
-    font-size: 90px;
+    margin-left: auto;
+    font-size: 75px;
 }
 
 .wtr-list {
@@ -82,7 +82,7 @@ button {
 }
 
 .func-btn {
-    background-color: #9EA7A9;
+    background-color: #d4d6d7;
     border-radius: 2px;
     height: 50px;
     width: 200px;
@@ -91,7 +91,7 @@ button {
 
 #city-name-input {
     box-sizing: border-box;
-    padding-left: 40px;
+    text-align: center;
     height: 50px;
     width: 200px;
     background-color: #edf0f3;

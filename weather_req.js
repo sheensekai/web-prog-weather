@@ -1,11 +1,10 @@
-function makeWeatherRequest(params, func, async = true,) {
+function makeWeatherRequest(params, async = true,) {
     const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric";
     const xhr = new XMLHttpRequest();
     const api_key = "34e35a1d80msh1acf606c8def3adp132cbbjsn7f1eb5c439c4";
     const host = "community-open-weather-map.p.rapidapi.com";
     const method = "GET";
 
-    xhr.onload = func;
     xhr.responseType = "json";
     xhr.open(method, url, async);
     xhr.setRequestHeader("x-rapidapi-key", api_key);
@@ -13,21 +12,21 @@ function makeWeatherRequest(params, func, async = true,) {
     return xhr;
 }
 
-function makeCoordsWeatherRequest(latitude, longitude, func) {
+function makeCoordsWeatherRequest(latitude, longitude) {
     const params = "?" + "lat" + "=" + latitude + "&" + "lon" + "=" + longitude;
-    return makeWeatherRequest(params, func);
+    return makeWeatherRequest(params);
 }
 
 function makeCityWeatherRequest(cityName, func) {
     const params = "?" + "q" + "=" + cityName;
-    return makeWeatherRequest(params, func);
+    return makeWeatherRequest(params);
 }
 
-function makeSourceWeatherRequest(source, func) {
+function makeSourceWeatherRequest(source) {
     if (source.byCity) {
-        return makeCityWeatherRequest(source.cityName, func);
+        return makeCityWeatherRequest(source.cityName);
     } else {
-        return makeCoordsWeatherRequest(source.latitude, source.longitude, func);
+        return makeCoordsWeatherRequest(source.latitude, source.longitude);
     }
 }
 
@@ -46,7 +45,7 @@ function getWeatherStateFromResponse(response) {
     }
     return {
         "cityName": response.name,
-        "temp": response.main.temp,
+        "temp": Math.round(response.main.temp * 10) / 10,
         "feels_like": response.main.feels_like,
         "wind": response.wind.speed,
         "clouds": response.clouds.all,
