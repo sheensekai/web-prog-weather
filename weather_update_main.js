@@ -16,6 +16,8 @@ function currentPositionError() {
 }
 
 function updateMainCityWithRequest(source) {
+    setLoaderForMain();
+
     const xhr = makeSourceWeatherRequest(source);
     sendWeatherRequest(xhr, function() {
         const state = getWeatherStateFromResponse(xhr.response);
@@ -35,6 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
-//     enableHighAccuracy: true
-// });
+navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
+    enableHighAccuracy: true
+});

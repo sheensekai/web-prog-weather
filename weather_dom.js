@@ -134,6 +134,11 @@ function makeLoaderMainBlock() {
     return mainBlock;
 }
 
+function setLoaderForMain() {
+    const loaderBlock = makeLoaderMainBlock();
+    updateMainWeatherBlock(loaderBlock);
+}
+
 function addWeatherBlockInList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     list.appendChild(weatherBlock);
