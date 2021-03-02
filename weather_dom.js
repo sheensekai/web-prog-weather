@@ -108,6 +108,32 @@ function makeMainWeatherBlock(cityName, tempVal, imgSrc, properties) {
     return mainBlock;
 }
 
+function makeLoaderBlock() {
+    const par = document.createElement("p");
+    par.innerText = "Подождите, данные загружаются";
+
+    const loader = document.createElement("div");
+    loader.className = "loader";
+
+    const loaderBlock = document.createElement("div");
+    loaderBlock.className = "wtr-block update-block";
+    loaderBlock.appendChild(par);
+    loaderBlock.appendChild(loader);
+    return loaderBlock;
+}
+
+function makeLoaderMainBlock() {
+    const firstBlock = makeLoaderBlock();
+    const secondBlock = makeLoaderBlock();
+
+    const mainBlock = document.createElement("div");
+    mainBlock.className = "wtr-list";
+    mainBlock.id = "wtr-main-block";
+    mainBlock.appendChild(firstBlock);
+    mainBlock.appendChild(secondBlock);
+    return mainBlock;
+}
+
 function addWeatherBlockInList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     list.appendChild(weatherBlock);
