@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Weather Website</title>
     <link href="styles.css" rel="stylesheet" type="text/css">
+    <link href="loader.css" rel="stylesheet" type="text/css">
 
     <script src="weather_dom.js" type="text/javascript"></script>
     <script src="weather_req.js" type="text/javascript"></script>
@@ -23,65 +24,15 @@
         </div>
     </div>
 
+
     <div id="wtr-main-block" class="wtr-list">
-        <div id="wtr-main" class="wtr-block">
-            <h2 class="wtr-city-name">
-                Saint-Petersburg
-            </h2>
-            <div class="main-block">
-                <img src="img/icon-set/PNG/250x250/blizzard.png" alt="Иконка погоды">
-                <span class="wtr-temp">
-                    8°C
-                </span>
-            </div>
+        <div class="wtr-block update-block">
+            <p>Подождите, данные загружаются</p>
+            <div class="loader"></div>
         </div>
-        <div class="wtr-block">
-            <ul class="feat-list">
-                <div class="feat-cont">
-                        <span class="feat-name">
-                            Ветер
-                        </span>
-                    <span class="feat-val">
-                            Moderate breeze, 6.0 m/s, North-northwest
-                        </span>
-                </div>
-
-                <div class="feat-cont">
-                        <span class="feat-name">
-                            Ветер
-                        </span>
-                    <span class="feat-val">
-                            Moderate breeze, 6.0 m/s, North-northwest
-                        </span>
-                </div>
-
-                <div class="feat-cont">
-                        <span class="feat-name">
-                            Ветер
-                        </span>
-                    <span class="feat-val">
-                            Moderate breeze, 6.0 m/s, North-northwest
-                        </span>
-                </div>
-
-                <div class="feat-cont">
-                        <span class="feat-name">
-                            Ветер
-                        </span>
-                    <span class="feat-val">
-                            Moderate breeze, 6.0 m/s, North-northwest
-                        </span>
-                </div>
-
-                <div class="feat-cont">
-                        <span class="feat-name">
-                            Ветер
-                        </span>
-                    <span class="feat-val">
-                            Moderate breeze, 6.0 m/s, North-northwest
-                        </span>
-                </div>
-            </ul>
+        <div class="wtr-block update-block">
+            <p>Подождите, данные загружаются</p>
+            <div class="loader"></div>
         </div>
     </div>
 </header>

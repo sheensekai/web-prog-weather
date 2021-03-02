@@ -35,6 +35,11 @@ img {
     height: 100px;
 }
 
+.update-block {
+    display: flex;
+    align-items: center;
+}
+
 .main-block {
     margin-top: 15px;
     display: flex;
@@ -89,6 +94,11 @@ button {
     cursor: pointer;
 }
 
+.func-btn:hover {
+    background: #bbbebe;
+    transition-duration: 0.5s;
+}
+
 #city-name-input {
     box-sizing: border-box;
     text-align: center;
@@ -97,7 +107,7 @@ button {
     background-color: #edf0f3;
 }
 
-.wtr-temp {
+.wtr-temp, .update-block {
     color: #7b7b7b;
     font-size: 25px;
 }
