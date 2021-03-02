@@ -122,16 +122,25 @@ function makeLoaderBlock() {
     return loaderBlock;
 }
 
-function makeLoaderMainBlock() {
+function makeLoaderBaseBlock() {
     const firstBlock = makeLoaderBlock();
     const secondBlock = makeLoaderBlock();
 
     const mainBlock = document.createElement("div");
-    mainBlock.className = "wtr-list";
-    mainBlock.id = "wtr-main-block";
     mainBlock.appendChild(firstBlock);
     mainBlock.appendChild(secondBlock);
     return mainBlock;
+}
+
+function makeLoaderMainBlock() {
+    const mainBlock = makeLoaderBaseBlock();
+    mainBlock.className = "wtr-list";
+    mainBlock.id = "wtr-main-block";
+    return mainBlock;
+}
+
+function makeLoaderCityBlock() {
+    return makeLoaderBlock();
 }
 
 function setLoaderForMain() {

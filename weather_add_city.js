@@ -14,10 +14,14 @@ function addSampleWeatherBlock() {
 }
 
 function addCityWithRequest(source) {
+    const loaderBlock = makeLoaderCityBlock();
+    addWeatherBlockInList(loaderBlock);
+
     const xhr = makeSourceWeatherRequest(source);
     sendWeatherRequest(xhr, function() {
         const state = getWeatherStateFromResponse(xhr.response);
         if (state !== null) {
+            removeWeatherBlockFromList(loaderBlock);
             const weatherProperties = getRuPropertyListFromState(state);
             const weatherBlock = makeWeatherBlock(state.cityName, state.temp, def_imgSrc, weatherProperties);
             addWeatherBlockInList(weatherBlock);
