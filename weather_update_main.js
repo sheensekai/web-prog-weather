@@ -28,15 +28,3 @@ function updateMainCityWithRequest(source) {
         }
     });
 }
-
-document.addEventListener("DOMContentLoaded", function() {
-    const buttonId = "update-main-btn";
-    const button = document.getElementById(buttonId);
-    button.onclick = () => navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
-        enableHighAccuracy: true
-    });
-});
-
-navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
-    enableHighAccuracy: true
-});
