@@ -23,7 +23,8 @@ function updateMainCityWithRequest(source) {
         const state = getWeatherStateFromResponse(xhr.response);
         if (state !== null) {
             const weatherProperties = getRuPropertyListFromState(state);
-            const mainWeatherBlock = makeMainWeatherBlock(state.cityName, state.temp, def_imgSrc, weatherProperties);
+            const imgSrc = getIconUrlFromResponseState(state);
+            const mainWeatherBlock = makeMainWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
             updateMainWeatherBlock(mainWeatherBlock);
         }
     });

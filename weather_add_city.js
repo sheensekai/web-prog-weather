@@ -23,7 +23,8 @@ function addCityWithRequest(source) {
         if (state !== null) {
             removeWeatherBlockFromList(loaderBlock);
             const weatherProperties = getRuPropertyListFromState(state);
-            const weatherBlock = makeWeatherBlock(state.cityName, state.temp, def_imgSrc, weatherProperties);
+            const imgSrc = getIconUrlFromResponseState(state);
+            const weatherBlock = makeWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
             addWeatherBlockInList(weatherBlock);
         }
     },

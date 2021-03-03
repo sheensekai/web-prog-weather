@@ -42,7 +42,6 @@ function addWeatherBlockFromResponse(xhr) {
 
 function sendWeatherRequest(xhr, func, failFunc = null) {
     xhr.onreadystatechange = function() {
-        console.log(xhr);
         if (xhr.readyState === 4) {
             if (xhr.status === 200 && func != null) {
                 func(xhr);
@@ -66,7 +65,8 @@ function getWeatherStateFromResponse(response) {
         "wind": response.wind.speed,
         "clouds": response.clouds.all,
         "pressure": response.main.pressure,
-        "humidity": response.main.humidity
+        "humidity": response.main.humidity,
+        "iconId" : response.weather[0].icon
     };
 }
 
@@ -78,4 +78,9 @@ function getRuPropertyListFromState(state) {
     weatherProperties.push({name: "Давление", value: state.pressure + " гПа"});
     weatherProperties.push({name: "Влаженость", value: state.humidity + "%"});
     return weatherProperties;
+}
+
+function getIconUrlFromResponseState(state, pix = "@2x", format = ".png") {
+    const base = "http://openweathermap.org/img/wn/";
+    return base + state.iconId + pix + format;
 }
