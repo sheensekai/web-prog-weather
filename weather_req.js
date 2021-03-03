@@ -1,5 +1,5 @@
 function makeWeatherRequest(params, async = true,) {
-    const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric";
+    const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric" + "&lang=ru";
     const xhr = new XMLHttpRequest();
     const api_key = "34e35a1d80msh1acf606c8def3adp132cbbjsn7f1eb5c439c4";
     const host = "community-open-weather-map.p.rapidapi.com";
