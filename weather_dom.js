@@ -146,7 +146,7 @@ function makeLoaderCityBlock() {
 function setLoaderForMain() {
     const loaderBlock = makeLoaderMainBlock();
     updateMainWeatherBlock(loaderBlock);
-}
+}p
 
 function addWeatherBlockInList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");

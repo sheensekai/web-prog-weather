@@ -26,7 +26,11 @@ function addCityWithRequest(source) {
             const weatherBlock = makeWeatherBlock(state.cityName, state.temp, def_imgSrc, weatherProperties);
             addWeatherBlockInList(weatherBlock);
         }
-    });
+    },
+        function() {
+            removeWeatherBlockFromList(loaderBlock);
+            alert("К сожаление, данные о погоде в указанном городе найти не получилось. Убедитесь, что ввели правильное название.");
+        });
 }
 
 function addCityButtonClick() {
