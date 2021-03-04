@@ -80,6 +80,15 @@ button {
     float: right;
 }
 
+#geo-btn-block {
+    display: flex;
+    align-items: center;
+}
+
+#geo-btn-block button {
+    margin-left: auto;
+}
+
 .wtr-cls-btn {
     font-size: 22px;
     line-height: 20px;
@@ -89,7 +98,6 @@ button {
 .func-btn {
     background-color: #d4d6d7;
     border-radius: 2px;
-    height: 50px;
     width: 200px;
     cursor: pointer;
 }
@@ -99,10 +107,13 @@ button {
     transition-duration: 0.5s;
 }
 
+.func-btn, #city-name-input {
+    height: 32px;
+}
+
 #city-name-input {
     box-sizing: border-box;
     text-align: center;
-    height: 50px;
     width: 200px;
     background-color: #edf0f3;
 }
@@ -114,6 +125,10 @@ button {
 
 .wtr-header {
     color: #a7a6ac;
+}
+
+#header .wtr-block {
+    height: 40px;
 }
 
 .wtr-city-name {
