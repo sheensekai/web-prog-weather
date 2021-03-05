@@ -13,7 +13,12 @@ function addCityWithRequest(source, replacedBlock = null) {
                 const weatherProperties = getRuPropertyListFromState(state);
                 const imgSrc = getIconUrlFromResponseState(state);
                 const weatherBlock = makeWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
-                replaceWeatherBlockFromList(loaderBlock, weatherBlock);
+                if (!checkIfWeatherBlockIsAlreadyInList(weatherBlock)) {
+                    replaceWeatherBlockFromList(loaderBlock, weatherBlock);
+                } else {
+                    removeWeatherBlockFromList(loaderBlock);
+                    alert("Этот город уже был добавлен в список.")
+                }
             }
         },
         function () {

@@ -203,3 +203,15 @@ function updateMainWeatherBlock(weatherBlock) {
     }
     addMainWeatherBlock(weatherBlock);
 }
+
+function checkIfWeatherBlockIsAlreadyInList(weatherBlock) {
+    const list = document.getElementById("wtr-blocks-cont");
+    const cityNames = list.getElementsByClassName("wtr-city-name");
+    const cityName = weatherBlock.getElementsByClassName("wtr-city-name")[0];
+    for (let name of cityNames) {
+        if (name.innerText === cityName.innerText) {
+            return true;
+        }
+    }
+    return false;
+}
