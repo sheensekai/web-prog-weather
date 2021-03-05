@@ -1,3 +1,5 @@
+const def_cityName = "Moscow";
+
 function currentPositionSuccess(position) {
     const source = {
         byCity: false,
@@ -19,7 +21,7 @@ function updateMainCityWithRequest(source) {
     setLoaderForMain();
 
     const xhr = makeSourceWeatherRequest(source);
-    sendWeatherRequest(xhr, function() {
+    sendWeatherRequest(xhr, function () {
         const state = getWeatherStateFromResponse(xhr.response);
         if (state !== null) {
             const weatherProperties = getRuPropertyListFromState(state);

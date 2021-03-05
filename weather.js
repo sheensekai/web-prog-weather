@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const buttonId = "update-main-btn";
     const button = document.getElementById(buttonId);
     button.onclick = () => navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const buttonId = "add-city-btn";
     const button = document.getElementById(buttonId);
     button.onclick = addCityButtonClick;

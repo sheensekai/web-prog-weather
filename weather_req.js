@@ -30,14 +30,17 @@ function makeSourceWeatherRequest(source) {
     }
 }
 
-function sendWeatherRequest(xhr, func, failFunc = null) {
-    xhr.onreadystatechange = function() {
+function sendWeatherRequest(xhr, func, failFunc = null, tooManyReqFunc = null) {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200 && func != null) {
                 func(xhr);
             }
             if (xhr.status === 404 && failFunc != null) {
                 failFunc(xhr);
+            }
+            if (xhr.status === 429 && tooManyReqFunc != null) {
+                tooManyReqFunc(xhr);
             }
         }
     }
@@ -56,7 +59,7 @@ function getWeatherStateFromResponse(response) {
         "clouds": response.clouds.all,
         "pressure": response.main.pressure,
         "humidity": response.main.humidity,
-        "iconId" : response.weather[0].icon
+        "iconId": response.weather[0].icon
     };
 }
 
