@@ -24,15 +24,9 @@ img {
     /*border: 4px black double;*/
 }
 
-.wtr-icon {
-    /*width: fit-content;*/
-    /*height: 80%;*/
-}
-
-#wtr-main img {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
+#wtr-blocks-cont .wtr-icon {
+    width: 50px;
+    height: 50px;
 }
 
 .update-block {
@@ -89,14 +83,24 @@ button {
     margin-left: auto;
 }
 
+.wtr-cls-btn, .wtr-upd-btn, .func-btn {
+    background-color: #d4d6d7;
+}
+
+.wtr-cls-btn {
+    margin-left: 3px;
+}
+
 .wtr-cls-btn {
     font-size: 22px;
+}
+
+.wtr-cls-btn, .wtr-upd-btn {
     line-height: 20px;
     cursor: pointer;
 }
 
 .func-btn {
-    background-color: #d4d6d7;
     border-radius: 2px;
     width: 200px;
     cursor: pointer;

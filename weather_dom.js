@@ -37,17 +37,27 @@ function makeWeatherBlockHeader(cityName, tempVal, imgSrc) {
     const img = document.createElement("img");
     img.setAttribute("alt", "Иконка погоды");
     img.setAttribute("src", imgSrc);
+    img.className = "wtr-icon"
 
-    const button = document.createElement("button");
-    button.className = "wtr-cls-btn";
-    button.innerText = "×";
+    const updateButton = document.createElement("button");
+    updateButton.className = "wtr-upd-btn";
+    updateButton.innerText = "Обновить";
+
+    const closeButton = document.createElement("button");
+    closeButton.className = "wtr-cls-btn";
+    closeButton.innerText = "×";
+
+    const propertiesCont = document.createElement("div");
+    propertiesCont.className = "wtr-header";
+    propertiesCont.appendChild(temp);
+    propertiesCont.appendChild(img);
+    propertiesCont.appendChild(updateButton);
+    propertiesCont.appendChild(closeButton);
 
     const header = document.createElement("div");
     header.className = "wtr-header";
     header.appendChild(city);
-    header.appendChild(temp);
-    header.appendChild(img);
-    header.appendChild(button);
+    header.appendChild(propertiesCont);
 
     return header;
 }
@@ -61,8 +71,11 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     weatherBlock.appendChild(header);
     weatherBlock.appendChild(propList);
 
-    const button = header.getElementsByTagName("button")[0];
-    button.onclick = () => removeWeatherBlockFromList(weatherBlock);
+    const updateButton = header.getElementsByClassName("wtr-upd-btn")[0];
+    updateButton.onclick = () => updateCityButtonClick(weatherBlock);
+
+    const closeButton = header.getElementsByClassName("wtr-cls-btn")[0];
+    closeButton.onclick = () => removeWeatherBlockFromList(weatherBlock);
     return weatherBlock;
 }
 
@@ -150,12 +163,23 @@ function setLoaderForMain() {
 
 function addWeatherBlockInList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
-    list.appendChild(weatherBlock);
+    if (weatherBlock != null && !list.contains(weatherBlock)) {
+        list.appendChild(weatherBlock);
+    }
 }
 
 function removeWeatherBlockFromList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
-    list.removeChild(weatherBlock);
+    if (list.contains(weatherBlock)) {
+        list.removeChild(weatherBlock);
+    }
+}
+
+function replaceWeatherBlockFromList(weatherBlock, newWeatherBlock) {
+    const list = document.getElementById("wtr-blocks-cont");
+    if (list.contains(weatherBlock) && newWeatherBlock != null) {
+        list.replaceChild(newWeatherBlock, weatherBlock);
+    }
 }
 
 function addMainWeatherBlock(weatherBlock) {

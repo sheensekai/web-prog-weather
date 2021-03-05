@@ -13,19 +13,22 @@ function addSampleWeatherBlock() {
     addWeatherBlockInList(weatherBlock);
 }
 
-function addCityWithRequest(source) {
+function addCityWithRequest(source, replacedBlock = null) {
     const loaderBlock = makeLoaderCityBlock();
-    addWeatherBlockInList(loaderBlock);
+    if (replacedBlock != null) {
+        replaceWeatherBlockFromList(replacedBlock, loaderBlock);
+    } else {
+        addWeatherBlockInList(loaderBlock);
+    }
 
     const xhr = makeSourceWeatherRequest(source);
     sendWeatherRequest(xhr, function() {
         const state = getWeatherStateFromResponse(xhr.response);
         if (state !== null) {
-            removeWeatherBlockFromList(loaderBlock);
             const weatherProperties = getRuPropertyListFromState(state);
             const imgSrc = getIconUrlFromResponseState(state);
             const weatherBlock = makeWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
-            addWeatherBlockInList(weatherBlock);
+            replaceWeatherBlockFromList(loaderBlock, weatherBlock);
         }
     },
         function() {
@@ -40,6 +43,12 @@ function addCityButtonClick() {
     cityNameInput.value = "";
     const source = {byCity: true, cityName: cityName};
     addCityWithRequest(source);
+}
+
+function updateCityButtonClick(weatherBlock) {
+    const cityName = weatherBlock.getElementsByClassName("wtr-city-name")[0].innerText;
+    const source = {byCity: true, cityName: cityName};
+    addCityWithRequest(source, weatherBlock);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
