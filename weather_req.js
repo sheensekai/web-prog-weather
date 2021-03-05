@@ -30,16 +30,6 @@ function makeSourceWeatherRequest(source) {
     }
 }
 
-function addWeatherBlockFromResponse(xhr) {
-    const state = getWeatherStateFromResponse(xhr.response);
-    if (state !== null) {
-        removeWeatherBlockFromList(loaderBlock);
-        const weatherProperties = getRuPropertyListFromState(state);
-        const weatherBlock = makeWeatherBlock(state.cityName, state.temp, def_imgSrc, weatherProperties);
-        addWeatherBlockInList(weatherBlock);
-    }
-}
-
 function sendWeatherRequest(xhr, func, failFunc = null) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {

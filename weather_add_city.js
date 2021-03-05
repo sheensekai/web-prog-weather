@@ -50,9 +50,3 @@ function updateCityButtonClick(weatherBlock) {
     const source = {byCity: true, cityName: cityName};
     addCityWithRequest(source, weatherBlock);
 }
-
-document.addEventListener("DOMContentLoaded", function() {
-    const buttonId = "add-city-btn";
-    const button = document.getElementById(buttonId);
-    button.onclick = addCityButtonClick;
-});

@@ -1,82 +1,10 @@
-h1, h2, h3 {
-    display: inline;
-    margin: 0;
-}
-
-body, button, input {
-    font-family: Verdana, sans-serif;
-}
-
-header, main {
-    width: 80%;
-    margin: 0 auto;
-}
-
-header .wtr-list {
-    margin-bottom: 20px;
-}
-
-#wtr-main .wtr-city-name {
-    font-size: 35px;
-}
-
-img {
-    /*border: 4px black double;*/
-}
-
 #wtr-blocks-cont .wtr-icon {
     width: 50px;
     height: 50px;
 }
 
-.update-block {
-    display: flex;
-    align-items: center;
-}
-
-.main-block {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-}
-
-.main-block .wtr-temp {
-    margin-left: auto;
-    font-size: 75px;
-}
-
-.wtr-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.wtr-block {
-    width: 500px;
-    height: fit-content;
-    margin: 20px 10px;
-}
-
-ul {
-    padding: 0;
-    margin: 0;
-}
-
-.wtr-header {
-    height: fit-content;
-    min-height: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-button {
+#add-city-btn {
     float: right;
-}
-
-#geo-btn-block {
-    display: flex;
-    align-items: center;
 }
 
 #geo-btn-block button {
@@ -89,9 +17,6 @@ button {
 
 .wtr-cls-btn {
     margin-left: 3px;
-}
-
-.wtr-cls-btn {
     font-size: 22px;
 }
 
@@ -111,10 +36,6 @@ button {
     transition-duration: 0.5s;
 }
 
-.func-btn, #city-name-input {
-    height: 32px;
-}
-
 #city-name-input {
     box-sizing: border-box;
     text-align: center;
@@ -127,18 +48,18 @@ button {
     font-size: 25px;
 }
 
-.wtr-header {
+.wtr-header-text {
     color: #a7a6ac;
-}
-
-#header .wtr-block {
-    height: 40px;
 }
 
 .wtr-city-name {
     margin: 0;
     color: #748489;
     font-size: 20px;
+}
+
+#wtr-main .wtr-city-name {
+    font-size: 30px;
 }
 
 .feat-name {
@@ -160,7 +81,6 @@ button {
     display: table;
     clear: both;
 }
-
 
 .feat-val {
     float: right;

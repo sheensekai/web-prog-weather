@@ -6,7 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-const cityNameTextField = document.getElementById("city-name-input");
+document.addEventListener("DOMContentLoaded", function() {
+    const buttonId = "add-city-btn";
+    const button = document.getElementById(buttonId);
+    button.onclick = addCityButtonClick;
+});
+
 document.addEventListener("keyup", function (event) {
     if (event.key === "Enter" && event.target.id === "city-name-input") {
         addCityButtonClick();

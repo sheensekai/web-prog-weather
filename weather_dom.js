@@ -20,7 +20,9 @@ function makeWeatherPropertyList(properties) {
     for (let i = 0; i < properties.length; ++i) {
         let prop = properties[i];
         let propElem = makeWeatherProperty(prop.name, prop.value);
-        propList.appendChild(propElem);
+        let li = document.createElement("li");
+        li.appendChild(propElem);
+        propList.appendChild(li);
     }
     return propList;
 }
@@ -47,7 +49,7 @@ function makeWeatherBlockHeader(cityName, tempVal, imgSrc) {
     closeButton.className = "wtr-cls-btn";
     closeButton.innerText = "×";
 
-    const propertiesCont = document.createElement("div");
+    const propertiesCont = document.createElement("ul");
     propertiesCont.className = "wtr-header";
     propertiesCont.appendChild(temp);
     propertiesCont.appendChild(img);
@@ -66,7 +68,7 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     const header = makeWeatherBlockHeader(cityName, tempVal, imgSrc);
     const propList = makeWeatherPropertyList(properties);
 
-    const weatherBlock = document.createElement("div");
+    const weatherBlock = document.createElement("section");
     weatherBlock.className = "wtr-block";
     weatherBlock.appendChild(header);
     weatherBlock.appendChild(propList);
@@ -113,7 +115,7 @@ function makeMainWeatherBlock(cityName, tempVal, imgSrc, properties) {
     listContainer.className = "wtr-block";
     listContainer.appendChild(propList);
 
-    const mainBlock = document.createElement("div");
+    const mainBlock = document.createElement("section");
     mainBlock.className = "wtr-list";
     mainBlock.id = "wtr-main-block";
     mainBlock.appendChild(header);
@@ -164,21 +166,23 @@ function setLoaderForMain() {
 function addWeatherBlockInList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     if (weatherBlock != null && !list.contains(weatherBlock)) {
-        list.appendChild(weatherBlock);
+        const li = document.createElement("li");
+        li.appendChild(weatherBlock)
+        list.appendChild(li);
     }
 }
 
 function removeWeatherBlockFromList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     if (list.contains(weatherBlock)) {
-        list.removeChild(weatherBlock);
+        list.removeChild(weatherBlock.parentElement);
     }
 }
 
 function replaceWeatherBlockFromList(weatherBlock, newWeatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     if (list.contains(weatherBlock) && newWeatherBlock != null) {
-        list.replaceChild(newWeatherBlock, weatherBlock);
+        weatherBlock.parentElement.replaceChild(newWeatherBlock, weatherBlock);
     }
 }
 
