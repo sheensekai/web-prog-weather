@@ -1,3 +1,62 @@
+function sendWeatherApiRequest(endpoint, params, method, func) {
+    const base = "localhost:3000/weather/";
+    let url = base + endpoint;
+    if (params !== null) {
+        url += params;
+    }
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = "json";
+    xhr.open(method, url);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            func(xhr);
+        }
+    };
+    xhr.send();
+}
+
+function getFavouritesRequest(func) {
+    const endpoint = "favourites";
+    const method = "GET";
+    sendWeatherApiRequest(endpoint, null, method, func);
+}
+
+function addFavouriteRequest(cityName, func) {
+    const endpoint = "favourites";
+    const method = "POST";
+    const params = "?cityName=" + cityName;
+    sendWeatherApiRequest(endpoint, params, method, func);
+}
+
+function deleteFavouriteRequest(cityName, func) {
+    const endpoint = "favourites";
+    const method = "DELETE";
+    const params = "?cityName=" + cityName;
+    sendWeatherApiRequest(endpoint, params, method, func);
+}
+
+function getCityByNameRequest(cityName, func) {
+    const endpoint = "city";
+    const method = "GET";
+    const params = "?cityName=" + cityName;
+    sendWeatherApiRequest(endpoint, params, method, func);
+}
+
+function getCityByCoordsRequest(lat, lon, func) {
+    const endpoint = "coordinates";
+    const method = "GET";
+    const params = "?latitude=" + lat + "&longitude=" + lon;
+    sendWeatherApiRequest(endpoint, params, method, func);
+}
+
+function getCityRequest(source, func) {
+    if (source.byCity) {
+        getCityByNameRequest(source.cityName, func);
+    } else {
+        getCityByCoordsRequest(source.latitude, source.longitude, func);
+    }
+}
+
 function makeWeatherRequest(params, async = true,) {
     const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric" + "&lang=ru";
     const xhr = new XMLHttpRequest();
