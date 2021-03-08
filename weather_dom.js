@@ -161,6 +161,7 @@ function makeLoaderCityBlock() {
 function setLoaderForMain() {
     const loaderBlock = makeLoaderMainBlock();
     updateMainWeatherBlock(loaderBlock);
+    return loaderBlock;
 }
 
 function addWeatherBlockInList(weatherBlock) {
