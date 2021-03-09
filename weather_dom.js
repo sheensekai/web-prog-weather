@@ -77,8 +77,14 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     updateButton.onclick = () => updateCityButtonClick(weatherBlock);
 
     const closeButton = header.getElementsByClassName("wtr-cls-btn")[0];
-    closeButton.onclick = () => removeWeatherBlockFromList(weatherBlock);
+    closeButton.onclick = () => deleteCityButtonClick(weatherBlock);
     return weatherBlock;
+}
+
+function makeWeatherBlockFromState(state) {
+    const weatherProperties = getRuPropertyListFromState(state);
+    const imgSrc = getIconUrlFromResponseState(state);
+    return makeWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
 }
 
 function makeMainWeatherBlockHeader(cityName, tempVal, imgSrc) {
@@ -164,12 +170,27 @@ function setLoaderForMain() {
     return loaderBlock;
 }
 
+function addSeveralWeatherBlocksInList(weatherBlocks) {
+    if (weatherBlocks !== null) {
+        for (let block of weatherBlocks) {
+            addWeatherBlockInList(block);
+        }
+    }
+}
+
 function addWeatherBlockInList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     if (weatherBlock != null && !list.contains(weatherBlock)) {
         const li = document.createElement("li");
         li.appendChild(weatherBlock)
         list.appendChild(li);
+    }
+}
+
+function clearWeatherBlockList() {
+    const list = document.getElementById("wtr-blocks-cont");
+    while (list.lastChild != null) {
+        list.removeChild(list.lastChild);
     }
 }
 

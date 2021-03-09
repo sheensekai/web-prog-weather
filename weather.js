@@ -18,6 +18,8 @@ document.addEventListener("keyup", function (event) {
     }
 });
 
-// navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
-//     enableHighAccuracy: true
-// });
+navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
+    enableHighAccuracy: true
+});
+
+document.addEventListener("DOMContentLoaded", () => loadFavouriteCities());
