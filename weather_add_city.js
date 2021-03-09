@@ -51,19 +51,13 @@ function addCityButtonClick() {
 }
 
 
-
 function updateCitySuccess(xhr, cityName, loaderBlock, weatherBlock) {
     const states = xhr.response;
-    let found = false;
-    for (let state of states) {
-        if (states.cityName === cityName) {
-            replaceLoaderBlockWithNewCityBlock(state, loaderBlock);
-            found = true;
-            break;
-        }
-    }
-    if (!found) {
+    if (states === null || states.length !== 1) {
         updateCityFailure(xhr, cityName, loaderBlock, weatherBlock);
+    } else {
+        const state = states[0];
+        replaceLoaderBlockWithNewCityBlock(state, loaderBlock);
     }
 }
 
@@ -90,8 +84,9 @@ function updateCityReceiveResponse(xhr, cityName, loaderBlock, weatherBlock) {
 function updateCityWithRequest(source, weatherBlock) {
     const loaderBlock = makeLoaderCityBlock();
     replaceWeatherBlockFromList(weatherBlock, loaderBlock);
-    getFavouritesRequest(
-        (xhr) => updateCityReceiveResponse(xhr, source.cityName, loaderBlock, weatherBlock));
+    getFavouriteByNameRequest(
+        (xhr) => updateCityReceiveResponse(xhr, source.cityName, loaderBlock, weatherBlock),
+        source.cityName);
 }
 
 function updateCityButtonClick(weatherBlock) {
@@ -108,7 +103,6 @@ function deleteCitySuccess(xhr, cityName, weatherBlock) {
 function deleteCityFailure(xhr, cityName, weatherBlock) {
     alert("К сожалению, удалить город из списка не вышло. Попробуйте обновить станицу и повторить попытку.");
 }
-
 
 function deleteCityTooManyRequests(xhr, cityName, weatherBlock) {
     alert("К сожалению, удалить город из списка не вышло, т. к. был превышен лимит на количество запросов. Попрбуйте еще раз через минуту.");

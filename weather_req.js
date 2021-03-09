@@ -15,10 +15,18 @@ function sendWeatherApiRequest(endpoint, params, method, func) {
     xhr.send();
 }
 
-function getFavouritesRequest(func) {
+function getFavouriteByNameRequest(func, cityName) {
+    getFavouritesRequest(func, [cityName]);
+}
+
+function getFavouritesRequest(func, cityName = null) {
     const endpoint = "favourites";
     const method = "GET";
-    sendWeatherApiRequest(endpoint, null, method, func);
+    let params = null;
+    if (cityName != null) {
+        params = "?cityName=" + cityName;
+    }
+    sendWeatherApiRequest(endpoint, params, method, func);
 }
 
 function addFavouriteRequest(cityName, func) {
