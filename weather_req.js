@@ -1,5 +1,5 @@
 function sendWeatherApiRequest(endpoint, params, method, func) {
-    const base = "http://localhost:3000/weather/";
+    const base = "https://my-nodejs-weather-server.herokuapp.com/weather/";
     let url = base + endpoint;
     if (params !== null) {
         url += params;
