@@ -5,13 +5,17 @@
 
 .wtr-list {
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
-.wtr-block {
-    width: 500px;
-    height: fit-content;
-    margin: 20px 10px;
+.city-block {
+    min-width: fit-content;
+    width: 45%;
+    margin: 10px 20px;
+}
+
+#header-block {
+    margin: 10px 20px;
 }
 
 .wtr-header {
@@ -35,4 +39,17 @@ header h1 {
 
 .func-btn, #city-name-input {
     height: 32px;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .city-block {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    #header-block {
+        width: 90%;
+        margin: 10px auto;
+    }
 }

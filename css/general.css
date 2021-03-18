@@ -7,11 +7,6 @@ body, button, input {
     font-family: Verdana, sans-serif;
 }
 
-header, main {
-    width: 80%;
-    margin: 0 auto;
-}
-
 header .wtr-list {
     margin-bottom: 20px;
 }
