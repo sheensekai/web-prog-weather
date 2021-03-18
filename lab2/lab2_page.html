@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="icon" sizes="32x32" type="image/png" href="img/favicon.png"/>
+
+    <meta charset="UTF-8">
+    <title>Weather Website</title>
+
+    <link href="../css/general.css" rel="stylesheet" type="text/css">
+    <link href="../css/main.css" rel="stylesheet" type="text/css">
+    <link href="../css/styles.css" rel="stylesheet" type="text/css">
+    <link href="../css/loader.css" rel="stylesheet" type="text/css">
+
+    <script src="weather_req.js" type="text/javascript"></script>
+    <script src="weather_dom.js" type="text/javascript"></script>
+    <script src="weather_add_city.js" type="text/javascript"></script>
+    <script src="weather_update_main.js" type="text/javascript"></script>
+    <script src="weather.js" type="text/javascript"></script>
+</head>
+<body>
+<header>
+        <section id="header-block" class="wtr-list">
+            <h1 class="wtr-header-text">
+                Погода здесь
+            </h1>
+            <button id="update-main-btn" class="func-btn"><img class="block-icon" src="../img/update.png"></button>
+        </section>
+</header>
+
+<main>
+    <section class="wtr-list">
+        <h2 id="wtr-fav-header-text" class="wtr-header-text wtr-block">
+            Избранное
+        </h2>
+
+        <div class="wtr-block wtr-list">
+            <label>
+                <input id="city-name-input" name="cityName" type="text" placeholder="Город"/>
+            </label>
+            <button id="add-city-btn" class="func-btn">Добавить</button>
+        </div>
+    </section>
+
+    <section>
+        <ul id="wtr-blocks-cont" class="wtr-list">
+        </ul>
+    </section>
+</main>
+
+<footer>
+</footer>
+</body>
+</html>
