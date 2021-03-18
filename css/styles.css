@@ -101,7 +101,7 @@
     height: 25px;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
     .wtr-city-name {
         font-size: 14px;
     }
