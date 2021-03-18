@@ -22,9 +22,12 @@
     cursor: pointer;
 }
 
+.func-btn, #city-name-input {
+    width: 120px;
+}
+
 .func-btn {
     border-radius: 2px;
-    width: 200px;
     cursor: pointer;
 }
 
@@ -36,7 +39,6 @@
 #city-name-input {
     box-sizing: border-box;
     text-align: center;
-    width: 200px;
     background-color: #edf0f3;
 }
 
@@ -82,4 +84,38 @@
 .feat-val {
     float: right;
     color: #f1f1f1;
+}
+
+.wtr-cls-btn, .wtr-upd-btn, #update-main-btn {
+    border: none;
+    background: none;
+}
+
+#update-main-btn {
+    width: fit-content;
+}
+
+.block-icon {
+    display: block;
+    margin: auto auto;
+    height: 25px;
+}
+
+@media screen and (max-width: 450px) {
+    .wtr-city-name {
+        font-size: 14px;
+    }
+
+    .main-block .wtr-temp {
+        margin-left: auto;
+        font-size: 45px;
+    }
+
+    .wtr-temp {
+        font-size: 16px;
+    }
+
+    #wtr-main .wtr-city-name {
+        font-size: 18px;
+    }
 }

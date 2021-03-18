@@ -8,7 +8,7 @@
     justify-content: space-between;
 }
 
-.city-block {
+.wtr-block {
     min-width: fit-content;
     width: 45%;
     margin: 10px 20px;
@@ -41,9 +41,8 @@ header h1 {
     height: 32px;
 }
 
-
 @media screen and (max-width: 1000px) {
-    .city-block {
+    .wtr-block {
         width: 90%;
         margin: 10px auto;
     }
