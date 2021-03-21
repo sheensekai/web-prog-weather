@@ -18,76 +18,27 @@ function makeWeatherProperty(name, value) {
     return elem;
 }
 
-function makeWeatherPropertyList(properties) {
-    const propList = document.createElement("ul");
-    propList.className = "feat-list";
-    for (let i = 0; i < properties.length; ++i) {
-        let prop = properties[i];
-        let propElem = makeWeatherProperty(prop.name, prop.value);
-        propList.appendChild(propElem);
+function setWeatherBlockContent(elem, cityName, tempVal, imgSrc, properties) {
+    elem.getElementsByClassName("wtr-city-name")[0].innerHTML = cityName;
+    elem.getElementsByClassName("wtr-temp")[0].innerHTML = tempVal + " °C";
+    elem.getElementsByClassName("wtr-icon")[0].setAttribute("src", imgSrc);
+
+    const list = elem.getElementsByClassName("wtr-feat-list")[0];
+    for (let prop of properties) {
+        const listElem = makeWeatherProperty(prop.name, prop.value);
+        list.appendChild(listElem);
     }
-    return propList;
-}
-
-function makeWeatherBlockHeader(cityName, tempVal, imgSrc) {
-    const city = document.createElement("h3");
-    city.className = "wtr-city-name";
-    city.innerText = cityName;
-
-    const temp = document.createElement("span");
-    temp.className = "wtr-temp";
-    temp.innerText = tempVal + "°C";
-
-    const img = document.createElement("img");
-    img.setAttribute("alt", "Иконка погоды");
-    img.setAttribute("src", imgSrc);
-    img.className = "wtr-icon"
-
-    const updateButton = document.createElement("button");
-    updateButton.className = "wtr-upd-btn";
-    const updateIcon = document.createElement("img")
-    updateIcon.className = "block-icon";
-    updateIcon.setAttribute("src", "img/update.png");
-    updateIcon.setAttribute("alt", "Обновить");
-    updateButton.appendChild(updateIcon);
-
-    const closeButton = document.createElement("button");
-    closeButton.className = "wtr-cls-btn";
-    const closeIcon = document.createElement("img")
-    closeIcon.className = "block-icon";
-    closeIcon.setAttribute("src", "img/close.png");
-    closeIcon.setAttribute("alt", "Зарыть");
-    closeButton.appendChild(closeIcon);
-
-    const propertiesCont = document.createElement("div");
-    propertiesCont.className = "wtr-header";
-    propertiesCont.appendChild(temp);
-    propertiesCont.appendChild(img);
-    propertiesCont.appendChild(updateButton);
-    propertiesCont.appendChild(closeButton);
-
-    const header = document.createElement("div");
-    header.className = "wtr-header";
-    header.appendChild(city);
-    header.appendChild(propertiesCont);
-
-    return header;
 }
 
 function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
-    const header = makeWeatherBlockHeader(cityName, tempVal, imgSrc);
-    const propList = makeWeatherPropertyList(properties);
+    const weatherBlock = favCityBlockElem.cloneNode(true);
+    setWeatherBlockContent(weatherBlock, cityName, tempVal, imgSrc, properties);
 
-    const weatherBlock = document.createElement("li");
-    weatherBlock.className = "wtr-block";
-    weatherBlock.appendChild(header);
-    weatherBlock.appendChild(propList);
-
-    const updateButton = header.getElementsByClassName("wtr-upd-btn")[0];
+    const updateButton = weatherBlock.getElementsByClassName("wtr-upd-btn")[0];
     updateButton.onclick = () => updateCityButtonClick(weatherBlock);
-
-    const closeButton = header.getElementsByClassName("wtr-cls-btn")[0];
+    const closeButton = weatherBlock.getElementsByClassName("wtr-cls-btn")[0];
     closeButton.onclick = () => deleteCityButtonClick(weatherBlock);
+
     return weatherBlock;
 }
 
@@ -97,43 +48,9 @@ function makeWeatherBlockFromState(state) {
     return makeWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
 }
 
-function makeMainWeatherBlockHeader(cityName, tempVal, imgSrc) {
-    const city = document.createElement("h2");
-    city.className = "wtr-city-name";
-    city.innerText = cityName;
-
-    const temp = document.createElement("span");
-    temp.className = "wtr-temp";
-    temp.innerText = tempVal + "°C";
-
-    const img = document.createElement("img");
-    img.className = "wtr-icon";
-    img.setAttribute("alt", "Иконка погоды");
-    img.setAttribute("src", imgSrc);
-
-    const mainSubBlock = document.createElement("div");
-    mainSubBlock.className = "main-block";
-    mainSubBlock.appendChild(img);
-    mainSubBlock.appendChild(temp);
-
-    const header = document.createElement("div");
-    header.id = "wtr-main";
-    header.className = "wtr-block";
-    header.appendChild(city);
-    header.appendChild(mainSubBlock);
-    return header;
-}
-
 function makeMainWeatherBlock(cityName, tempVal, imgSrc, properties) {
-    const header = makeMainWeatherBlockHeader(cityName, tempVal, imgSrc);
-    const propList = makeWeatherPropertyList(properties);
-    propList.className = "wtr-block";
-
-    const mainBlock = document.createElement("section");
-    mainBlock.className = "wtr-list";
-    mainBlock.id = "wtr-main-block";
-    mainBlock.appendChild(header);
-    mainBlock.appendChild(propList);
+    const mainBlock = mainCityBlockElem.cloneNode(true);
+    setWeatherBlockContent(mainBlock, cityName, tempVal, imgSrc, properties);
     return mainBlock;
 }
 
