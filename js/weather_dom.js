@@ -1,17 +1,21 @@
+let favCityBlockTmpl, mainCityBlockTmpl, wtrFeatTmpl;
+let favCityBlockElem, mainCityBlockElem, wtrFeatElem;
+
+function loadTemplates() {
+    favCityBlockTmpl = document.getElementById("fav-city-block-tmpl");
+    mainCityBlockTmpl = document.getElementById("main-city-block-tmpl");
+    wtrFeatTmpl = document.getElementById("wtr-feat-tmpl");
+
+    favCityBlockElem = favCityBlockTmpl.content.children[0];
+    mainCityBlockElem = mainCityBlockTmpl.content.children[0];
+    wtrFeatElem = wtrFeatTmpl.content.children[0];
+}
+
 function makeWeatherProperty(name, value) {
-    const paramNameObj = document.createElement("span");
-    paramNameObj.className = "feat-name";
-    paramNameObj.innerText = name;
-
-    const paramValueObj = document.createElement("span");
-    paramValueObj.className = "feat-val";
-    paramValueObj.innerText = value;
-
-    const container = document.createElement("li");
-    container.className = "feat-cont";
-    container.appendChild(paramNameObj);
-    container.appendChild(paramValueObj);
-    return container;
+    const elem = wtrFeatElem.cloneNode(true);
+    elem.getElementsByClassName("feat-name")[0].innerHTML = name;
+    elem.getElementsByClassName("feat-val")[0].innerHTML = value;
+    return elem;
 }
 
 function makeWeatherPropertyList(properties) {
