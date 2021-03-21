@@ -23,7 +23,9 @@
             <h1 class="wtr-header-text">
                 Погода здесь
             </h1>
-            <button id="update-main-btn" class="func-btn"><img class="block-icon" src="img/update.png"></button>
+            <button id="update-main-btn" class="func-btn">
+                <img class="block-icon" src="img/update.png">
+            </button>
         </section>
 </header>
 
@@ -54,7 +56,16 @@
     <li class="wtr-block">
         <div class="wtr-header">
             <h3 class="wtr-city-name"></h3>
-            <div class="wtr-header"><span class="wtr-temp"></span><img alt="Иконка погоды" src="" class="wtr-icon"><button class="wtr-upd-btn"><img class="block-icon" src="img/update.png" alt="Обновить"></button><button class="wtr-cls-btn"><img class="block-icon" src="img/close.png" alt="Закрыть"></button></div>
+            <div class="wtr-header">
+                <span class="wtr-temp"></span>
+                <img alt="Иконка погоды" src="" class="wtr-icon">
+                <button class="wtr-upd-btn">
+                    <img class="block-icon" src="img/update.png" alt="Обновить">
+                </button>
+                <button class="wtr-cls-btn">
+                    <img class="block-icon" src="img/close.png" alt="Закрыть">
+                </button>
+            </div>
         </div>
         <ul class="feat-list wtr-feat-list">
         </ul>
@@ -62,10 +73,13 @@
 </template>
 
 <template id="main-city-block-tmpl">
-    <section class="wtr-list" id="wtr-main-block">
+    <section class="wtr-list wtr-main-block">
         <div id="wtr-main" class="wtr-block">
             <h2 class="wtr-city-name"></h2>
-            <div class="main-block"><img class="wtr-icon" alt="Иконка погоды" src=""><span class="wtr-temp"></span></div>
+            <div class="main-block">
+                <img class="wtr-icon" alt="Иконка погоды" src="">
+                <span class="wtr-temp"></span>
+            </div>
         </div>
         <ul class="wtr-block wtr-feat-list">
         </ul>
@@ -73,7 +87,32 @@
 </template>
 
 <template id="wtr-feat-tmpl">
-    <li class="feat-cont"><span class="feat-name"></span><span class="feat-val"></span></li>
+    <li class="feat-cont">
+        <span class="feat-name"></span>
+        <span class="feat-val"></span>
+    </li>
 </template>
+
+<template id="wtr-loader-tmpl">
+    <div class="update-block wtr-block">
+        <p>Подождите, данные загружаются</p>
+        <div class="loader"></div>
+    </div>
+</template>
+
+<template id="wtr-main-loader-tmpl">
+    <section class="wtr-list wtr-main-block">
+        <div class="update-block wtr-block">
+            <p>Подождите, данные загружаются</p>
+            <div class="loader"></div>
+        </div>
+
+        <div class="update-block wtr-block">
+            <p>Подождите, данные загружаются</p>
+            <div class="loader"></div>
+        </div>
+    </section>
+</template>
+
 </body>
 </html>

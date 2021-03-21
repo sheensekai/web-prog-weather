@@ -1,14 +1,18 @@
-let favCityBlockTmpl, mainCityBlockTmpl, wtrFeatTmpl;
-let favCityBlockElem, mainCityBlockElem, wtrFeatElem;
+let favCityBlockTmpl, mainCityBlockTmpl, wtrFeatTmpl, wtrLoaderTmpl, wtrMainLoaderTmpl;
+let favCityBlockElem, mainCityBlockElem, wtrFeatElem, wtrLoaderElem, wtrMainLoaderElem;
 
 function loadTemplates() {
     favCityBlockTmpl = document.getElementById("fav-city-block-tmpl");
     mainCityBlockTmpl = document.getElementById("main-city-block-tmpl");
     wtrFeatTmpl = document.getElementById("wtr-feat-tmpl");
+    wtrLoaderTmpl = document.getElementById("wtr-loader-tmpl");
+    wtrMainLoaderTmpl = document.getElementById("wtr-main-loader-tmpl");
 
     favCityBlockElem = favCityBlockTmpl.content.children[0];
     mainCityBlockElem = mainCityBlockTmpl.content.children[0];
     wtrFeatElem = wtrFeatTmpl.content.children[0];
+    wtrLoaderElem = wtrLoaderTmpl.content.children[0];
+    wtrMainLoaderElem = wtrMainLoaderTmpl.content.children[0];
 }
 
 function makeWeatherProperty(name, value) {
@@ -55,38 +59,15 @@ function makeMainWeatherBlock(cityName, tempVal, imgSrc, properties) {
 }
 
 function makeLoaderBlock() {
-    const par = document.createElement("p");
-    par.innerText = "Подождите, данные загружаются";
-
-    const loader = document.createElement("div");
-    loader.className = "loader";
-
-    const loaderBlock = document.createElement("li");
-    loaderBlock.className = "update-block wtr-block";
-    loaderBlock.appendChild(par);
-    loaderBlock.appendChild(loader);
-    return loaderBlock;
-}
-
-function makeLoaderBaseBlock() {
-    const firstBlock = makeLoaderBlock();
-    const secondBlock = makeLoaderBlock();
-
-    const mainBlock = document.createElement("div");
-    mainBlock.appendChild(firstBlock);
-    mainBlock.appendChild(secondBlock);
-    return mainBlock;
-}
-
-function makeLoaderMainBlock() {
-    const mainBlock = makeLoaderBaseBlock();
-    mainBlock.className = "wtr-list";
-    mainBlock.id = "wtr-main-block";
-    return mainBlock;
+    return wtrLoaderElem.cloneNode(true);
 }
 
 function makeLoaderCityBlock() {
     return makeLoaderBlock();
+}
+
+function makeLoaderMainBlock() {
+    return wtrMainLoaderElem.cloneNode(true);
 }
 
 function setLoaderForMain() {
@@ -142,7 +123,8 @@ function removeMainWeatherBlock(weatherBlock) {
 }
 
 function updateMainWeatherBlock(weatherBlock) {
-    const foundBlock = document.getElementById("wtr-main-block");
+    const found = document.getElementsByClassName("wtr-main-block");
+    const foundBlock = (found.length === 1 ? found[0] : null);
     if (foundBlock !== null) {
         removeMainWeatherBlock(foundBlock);
     }

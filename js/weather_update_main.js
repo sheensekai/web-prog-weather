@@ -60,7 +60,7 @@ function updateMainCityReceiveResponse(xhr, loaderBlock, mainBlock) {
 }
 
 function updateMainCityWithRequest(source) {
-    const mainBlock = document.getElementById("wtr-main-block");
+    const mainBlock = document.getElementsByClassName("wtr-main-block")[0];
     const loaderBlock = setLoaderForMain();
     getCityRequest(source, (xhr) => updateMainCityReceiveResponse(xhr, loaderBlock, mainBlock))
 }
