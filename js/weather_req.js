@@ -1,18 +1,17 @@
-function sendWeatherApiRequest(endpoint, params, method, func) {
+function sendWeatherRequest(endpoint, params, method, func, errFunc = null) {
     const base = "https://my-nodejs-weather-server.herokuapp.com/weather/";
     let url = base + endpoint;
     if (params !== null) {
         url += params;
     }
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = "json";
-    xhr.open(method, url);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            func(xhr);
-        }
-    };
-    xhr.send();
+    fetch(url, {
+        method: method
+    }).then(value => func(value))
+        .catch(function (reason) {
+            if (errFunc !== null) {
+                errFunc(reason);
+            }
+        });
 }
 
 function getFavouriteByNameRequest(func, cityName) {
@@ -26,35 +25,35 @@ function getFavouritesRequest(func, cityName = null) {
     if (cityName != null) {
         params = "?cityName=" + cityName;
     }
-    sendWeatherApiRequest(endpoint, params, method, func);
+    sendWeatherRequest(endpoint, params, method, func);
 }
 
 function addFavouriteRequest(cityName, func) {
     const endpoint = "favourites";
     const method = "POST";
     const params = "?cityName=" + cityName;
-    sendWeatherApiRequest(endpoint, params, method, func);
+    sendWeatherRequest(endpoint, params, method, func);
 }
 
 function deleteFavouriteRequest(cityName, func) {
     const endpoint = "favourites";
     const method = "DELETE";
     const params = "?cityName=" + cityName;
-    sendWeatherApiRequest(endpoint, params, method, func);
+    sendWeatherRequest(endpoint, params, method, func);
 }
 
 function getCityByNameRequest(cityName, func) {
     const endpoint = "city";
     const method = "GET";
     const params = "?cityName=" + cityName;
-    sendWeatherApiRequest(endpoint, params, method, func);
+    sendWeatherRequest(endpoint, params, method, func);
 }
 
 function getCityByCoordsRequest(lat, lon, func) {
     const endpoint = "coordinates";
     const method = "GET";
     const params = "?latitude=" + lat + "&longitude=" + lon;
-    sendWeatherApiRequest(endpoint, params, method, func);
+    sendWeatherRequest(endpoint, params, method, func);
 }
 
 function getCityRequest(source, func) {
