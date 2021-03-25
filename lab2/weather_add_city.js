@@ -1,5 +1,5 @@
-function replaceLoaderBlockWithNewCityBlock(state, loaderBlock) {
-    const weatherBlock = makeWeatherBlockFromState(state);
+function replaceLoaderBlockWithNewCityBlock(response, loaderBlock) {
+    const weatherBlock = makeWeatherBlockFromResponse(response);
     if (!checkIfWeatherBlockIsAlreadyInList(weatherBlock)) {
         replaceWeatherBlockFromList(loaderBlock, weatherBlock);
     } else {
@@ -8,90 +8,101 @@ function replaceLoaderBlockWithNewCityBlock(state, loaderBlock) {
     }
 }
 
-function addCitySuccess(xhr, loaderBlock) {
-    const response = xhr.response;
-    const state = getWeatherStateFromResponse(response);
-    if (state !== null) {
-        replaceLoaderBlockWithNewCityBlock(state, loaderBlock);
-    }
+function addCitySuccess(response, loaderBlock) {
+    response.json()
+        .then(function (resp) {
+            if (response !== null) {
+                replaceLoaderBlockWithNewCityBlock(resp, loaderBlock);
+            } else {
+                addCityFailure(response, loaderBlock);
+            }
+        }).catch(() => addCityFailure(response, loaderBlock));
 }
 
-function addCityFailure(xhr, loaderBlock) {
+function addCityFailure(response, loaderBlock) {
     removeWeatherBlockFromList(loaderBlock);
     alert("К сожаление, данные о погоде в указанном городе найти не получилось. Убедитесь, что ввели правильное название.");
 }
 
-function addCityTooManyRequests(xhr, loaderBlock) {
+function addCityTooManyRequests(response, loaderBlock) {
     removeWeatherBlockFromList(loaderBlock);
     alert("К сожаление, данные о погоде в указанном городе найти не получилось. Был превышен лимит запросов для приложения. Подождите минуту и добавьте город еще раз.");
 }
 
-function addCityReceiveResponse(xhr, loaderBlock) {
-    if (xhr.status === 200) {
-        addCitySuccess(xhr, loaderBlock);
-    } else if (xhr.status === 404) {
-        addCityFailure(xhr, loaderBlock);
-    } else if (xhr.status === 429) {
-        addCityTooManyRequests(xhr, loaderBlock);
+function addCityReceiveResponse(response, loaderBlock) {
+    if (response.status === 200) {
+        addCitySuccess(response, loaderBlock);
+    } else if (response.status === 404) {
+        addCityFailure(response, loaderBlock);
+    } else if (response.status === 429) {
+        addCityTooManyRequests(response, loaderBlock);
     }
 }
 
-function addCityWithRequest(cityName) {
+function addCityWithRequest(source) {
     const loaderBlock = makeLoaderCityBlock();
     addWeatherBlockInList(loaderBlock);
-    const xhr = makeCityWeatherRequest(cityName);
-    sendWeatherRequest(xhr, (xhr) => addCityReceiveResponse(xhr, loaderBlock));
+    getCityRequest(source, (response) => addCityReceiveResponse(response, loaderBlock));
 }
 
 function addCityButtonClick() {
     const cityNameInput = document.getElementById("city-name-input");
     const cityName = cityNameInput.value;
     cityNameInput.value = "";
-    addCityWithRequest(cityName);
+    const source = {byCity: true, cityName: cityName};
+    addCityWithRequest(source);
 }
 
-function updateCitySuccess(xhr, cityName, loaderBlock, weatherBlock) {
-    const response = xhr.response;
-    const state = getWeatherStateFromResponse(response);
-    if (state === null) {
-        updateCityFailure(xhr, cityName, loaderBlock, weatherBlock);
-    } else {
-        replaceLoaderBlockWithNewCityBlock(state, loaderBlock);
-    }
+
+function updateCitySuccess(response, cityName, loaderBlock, weatherBlock) {
+    response.json()
+        .then(function(resp) {
+            if (resp === null) {
+                updateCityFailure(response, cityName, loaderBlock, weatherBlock);
+            } else {
+                replaceLoaderBlockWithNewCityBlock(resp, loaderBlock);
+            }
+        }).catch(() => updateCityFailure(response, cityName, loaderBlock, weatherBlock));
 }
 
-function updateCityFailure(xhr, cityName, loaderBlock, weatherBlock) {
+function updateCityFailure(response, cityName, loaderBlock, weatherBlock) {
     replaceWeatherBlockFromList(loaderBlock, weatherBlock);
     alert("К сожалению, обновить данные о данном городе не получилось.");
 }
 
-function updateCityTooManyRequests(xhr, cityName, loaderBlock, weatherBlock) {
+function updateCityTooManyRequests(response, cityName, loaderBlock, weatherBlock) {
     replaceWeatherBlockFromList(loaderBlock, weatherBlock);
     alert("К сожалению, обновить данные о данном городе не получилось, поскольку был превышен лимит посылаемых запросов. Попробуйте еще раз через минуту.");
 }
 
-function updateCityReceiveResponse(xhr, cityName, loaderBlock, weatherBlock) {
-    if (xhr.status === 200) {
-        updateCitySuccess(xhr, cityName, loaderBlock, weatherBlock);
-    } else if (xhr.status === 404) {
-        updateCityFailure(xhr, cityName, loaderBlock, weatherBlock);
-    } else if (xhr.status === 429) {
-        updateCityTooManyRequests(xhr, cityName, loaderBlock, weatherBlock);
+function updateCityReceiveResponse(response, cityName, loaderBlock, weatherBlock) {
+    if (response.status === 200) {
+        updateCitySuccess(response, cityName, loaderBlock, weatherBlock);
+    } else if (response.status === 404) {
+        updateCityFailure(response, cityName, loaderBlock, weatherBlock);
+    } else if (response.status === 429) {
+        updateCityTooManyRequests(response, cityName, loaderBlock, weatherBlock);
     }
 }
 
-function updateCityWithRequest(cityName, weatherBlock) {
+function updateCityWithRequest(source, weatherBlock) {
     const loaderBlock = makeLoaderCityBlock();
     replaceWeatherBlockFromList(weatherBlock, loaderBlock);
-    const xhr = makeCityWeatherRequest(cityName);
-    sendWeatherRequest(xhr, (xhr) => updateCityReceiveResponse(xhr, cityName, loaderBlock, weatherBlock));
+    getCityRequest(source,
+        (response) => updateCityReceiveResponse(response, source.cityName, loaderBlock, weatherBlock),
+        source.cityName);
 }
 
 function updateCityButtonClick(weatherBlock) {
     const cityName = weatherBlock.getElementsByClassName("wtr-city-name")[0].innerText;
-    updateCityWithRequest(cityName, weatherBlock);
+    const source = {byCity: true, cityName: cityName};
+    updateCityWithRequest(source, weatherBlock);
+}
+
+function deleteCitySuccess(weatherBlock) {
+    removeWeatherBlockFromList(weatherBlock);
 }
 
 function deleteCityButtonClick(weatherBlock) {
-    removeWeatherBlockFromList(weatherBlock);
+    deleteCitySuccess(weatherBlock);
 }

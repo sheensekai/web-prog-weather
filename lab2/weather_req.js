@@ -1,34 +1,39 @@
-function makeWeatherRequest(params) {
-    const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric" + "&lang=ru";
-    const xhr = new XMLHttpRequest();
+function sendWeatherRequest(params, func, errFunc = null) {
+    const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric";
+    //  + "&lang=ru";
     const api_key = "76e83c9996msh3301669dd80d319p145896jsn558cf76c2a22";
     const host = "community-open-weather-map.p.rapidapi.com";
     const method = "GET";
 
-    xhr.responseType = "json";
-    xhr.open(method, url);
-    xhr.setRequestHeader("x-rapidapi-key", api_key);
-    xhr.setRequestHeader("x-rapidapi-host", host);
-    return xhr;
+    fetch(url, {
+        "method": method,
+        "headers" : {
+            "x-rapidapi-key": api_key,
+            "x-rapidapi-host": host
+        }}).then((response) => func(response))
+        .catch((error) => {
+            if (errFunc !== null) {
+                errFunc(error);
+            }
+        });
 }
 
-function makeCoordsWeatherRequest(latitude, longitude) {
-    const params = "?" + "lat" + "=" + latitude + "&" + "lon" + "=" + longitude;
-    return makeWeatherRequest(params);
+function getCityByNameRequest(cityName, func) {
+    const params = "?q=" + cityName;
+    sendWeatherRequest(params, func);
 }
 
-function makeCityWeatherRequest(cityName) {
-    const params = "?" + "q" + "=" + cityName;
-    return makeWeatherRequest(params);
+function getCityByCoordsRequest(lat, lon, func) {
+    const params = "?lat=" + lat + "&lon=" + lon;
+    sendWeatherRequest(params, func);
 }
 
-function sendWeatherRequest(xhr, func) {
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            func(xhr);
-        }
+function getCityRequest(source, func) {
+    if (source.byCity) {
+        getCityByNameRequest(source.cityName, func);
+    } else {
+        getCityByCoordsRequest(source.latitude, source.longitude, func);
     }
-    xhr.send();
 }
 
 function getWeatherStateFromResponse(response) {

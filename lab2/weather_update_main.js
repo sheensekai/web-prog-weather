@@ -17,20 +17,22 @@ function currentPositionError() {
     updateMainCityWithRequest(source);
 }
 
-function updateMainCitySuccess(xhr, loaderBlock, mainBlock) {
-    const response = xhr.response;
-    const state = getWeatherStateFromResponse(response);
-    if (state !== null) {
-        const weatherProperties = getRuPropertyListFromState(state);
-        const imgSrc = getIconUrlFromResponseState(state);
-        const newMainBlock = makeMainWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
-        updateMainWeatherBlock(newMainBlock);
-    } else {
-        updateMainCityFailure(xhr, loaderBlock, mainBlock);
-    }
+function updateMainCitySuccess(response, loaderBlock, mainBlock) {
+    response.json()
+        .then(function(resp) {
+            if (resp !== null) {
+                const state = getWeatherStateFromResponse(resp);
+                const weatherProperties = getRuPropertyListFromState(state);
+                const imgSrc = getIconUrlFromResponseState(state);
+                const newMainBlock = makeMainWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
+                updateMainWeatherBlock(newMainBlock);
+            } else {
+                updateMainCityFailure(response, loaderBlock, mainBlock);
+            }
+        }).catch(() => updateMainCityFailure(response, loaderBlock, mainBlock));
 }
 
-function updateMainCityFailure(xhr, loaderBlock, mainBlock) {
+function updateMainCityFailure(response, loaderBlock, mainBlock) {
     if (mainBlock !== null) {
         updateMainWeatherBlock(mainBlock);
         alert("К сожалению, обновить данные о городе не получилось.")
@@ -40,7 +42,7 @@ function updateMainCityFailure(xhr, loaderBlock, mainBlock) {
     }
 }
 
-function updateMainCityTooManyRequests(xhr, loaderBlock, mainBlock) {
+function updateMainCityTooManyRequests(response, loaderBlock, mainBlock) {
     if (mainBlock !== null) {
         updateMainWeatherBlock(mainBlock);
         alert("К сожалению, обновить данные о городе не получилось, так как был превышен лимит на количество запросов.")
@@ -50,24 +52,18 @@ function updateMainCityTooManyRequests(xhr, loaderBlock, mainBlock) {
     }
 }
 
-function updateMainCityReceiveResponse(xhr, loaderBlock, mainBlock) {
-    if (xhr.status === 200) {
-        updateMainCitySuccess(xhr, loaderBlock, mainBlock);
-    } else if (xhr.status === 404) {
-        updateMainCityFailure(xhr, loaderBlock, mainBlock);
-    } else if (xhr.status === 429) {
-        updateMainCityTooManyRequests(xhr, loaderBlock, mainBlock);
+function updateMainCityReceiveResponse(response, loaderBlock, mainBlock) {
+    if (response.status === 200) {
+        updateMainCitySuccess(response, loaderBlock, mainBlock);
+    } else if (response.status === 404) {
+        updateMainCityFailure(response, loaderBlock, mainBlock);
+    } else if (response.status === 429) {
+        updateMainCityTooManyRequests(response, loaderBlock, mainBlock);
     }
 }
 
 function updateMainCityWithRequest(source) {
-    const mainBlock = document.getElementById("wtr-main-block");
+    const mainBlock = document.getElementsByClassName("wtr-main-block")[0];
     const loaderBlock = setLoaderForMain();
-    let xhr;
-    if (source.byCity) {
-        xhr = makeCityWeatherRequest(source.cityName);
-    } else {
-        xhr = makeCoordsWeatherRequest(source.latitude, source.longitude);
-    }
-    sendWeatherRequest(xhr, (xhr) => updateMainCityReceiveResponse(xhr, loaderBlock, mainBlock))
+    getCityRequest(source, (response) => updateMainCityReceiveResponse(response, loaderBlock, mainBlock))
 }
