@@ -46,8 +46,7 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     return weatherBlock;
 }
 
-function makeWeatherBlockFromResponse(response) {
-    const state = getWeatherStateFromResponse(response);
+function makeWeatherBlockFromState(state) {
     const weatherProperties = getRuPropertyListFromState(state);
     const imgSrc = getIconUrlFromResponseState(state);
     return makeWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
@@ -57,6 +56,12 @@ function makeMainWeatherBlock(cityName, tempVal, imgSrc, properties) {
     const mainBlock = mainCityBlockElem.cloneNode(true);
     setWeatherBlockContent(mainBlock, cityName, tempVal, imgSrc, properties);
     return mainBlock;
+}
+
+function makeMainWeatherBlockFromState(state) {
+    const weatherProperties = getRuPropertyListFromState(state);
+    const imgSrc = getIconUrlFromResponseState(state);
+    return makeMainWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
 }
 
 function makeLoaderBlock() {

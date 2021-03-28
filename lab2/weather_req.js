@@ -1,39 +1,45 @@
-function sendWeatherRequest(params, func, errFunc = null) {
+async function sendWeatherRequest(params) {
     const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric";
     //  + "&lang=ru";
     const api_key = "76e83c9996msh3301669dd80d319p145896jsn558cf76c2a22";
     const host = "community-open-weather-map.p.rapidapi.com";
     const method = "GET";
 
-    fetch(url, {
+    return await fetch(url, {
         "method": method,
         "headers" : {
             "x-rapidapi-key": api_key,
             "x-rapidapi-host": host
-        }}).then((response) => func(response))
-        .catch((error) => {
-            if (errFunc !== null) {
-                errFunc(error);
-            }
-        });
+        }});
 }
 
-function getCityByNameRequest(cityName, func) {
+async function getCityByNameRequest(cityName) {
     const params = "?q=" + cityName;
-    sendWeatherRequest(params, func);
+    return await sendWeatherRequest(params);
 }
 
-function getCityByCoordsRequest(lat, lon, func) {
+async function getCityByCoordsRequest(lat, lon) {
     const params = "?lat=" + lat + "&lon=" + lon;
-    sendWeatherRequest(params, func);
+    return await sendWeatherRequest(params);
 }
 
-function getCityRequest(source, func) {
+async function getCityRequest(source) {
     if (source.byCity) {
-        getCityByNameRequest(source.cityName, func);
+        return await getCityByNameRequest(source.cityName);
     } else {
-        getCityByCoordsRequest(source.latitude, source.longitude, func);
+        return await getCityByCoordsRequest(source.latitude, source.longitude);
     }
+}
+
+async function getCityWeatherState(source) {
+    const result = {status: null, weatherState: null};
+    const response = await getCityRequest(source);
+    result.status = response.status;
+    if (result.status === 200) {
+        const jsonResponse = await response.json();
+        result.weatherState = getWeatherStateFromResponse(jsonResponse);
+    }
+    return result;
 }
 
 function getWeatherStateFromResponse(response) {
