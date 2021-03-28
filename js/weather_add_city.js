@@ -49,9 +49,11 @@ function addCityWithRequest(source) {
 function addCityButtonClick() {
     const cityNameInput = document.getElementById("city-name-input");
     const cityName = cityNameInput.value;
-    cityNameInput.value = "";
-    const source = {byCity: true, cityName: cityName};
-    addCityWithRequest(source);
+    if (cityName !== null && cityName !== "") {
+        cityNameInput.value = "";
+        const source = {byCity: true, cityName: cityName};
+        addCityWithRequest(source);
+    }
 }
 
 
