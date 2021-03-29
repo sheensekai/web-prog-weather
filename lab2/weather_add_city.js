@@ -1,5 +1,5 @@
 function replaceLoaderBlockWithNewCityBlock(weatherState, loaderBlock) {
-    const weatherBlock = makeWeatherBlockFromState(weatherState);
+    const weatherBlock = makeWeatherBlockFromResponse(weatherState);
     if (!checkIfWeatherBlockIsAlreadyInList(weatherBlock)) {
         replaceWeatherBlockFromList(loaderBlock, weatherBlock);
     } else {
@@ -21,7 +21,7 @@ function addCityTooManyRequests(loaderBlock) {
 async function doAddCity(source) {
     const loaderBlock = makeLoaderCityBlock();
     addWeatherBlockInList(loaderBlock);
-    const result = await getCityWeatherState(source);
+    const result = await getCityRequest(source);
 
     if (result.status === 200) {
         replaceLoaderBlockWithNewCityBlock(result.weatherState, loaderBlock);
@@ -55,10 +55,10 @@ function updateCityTooManyRequests(loaderBlock, weatherBlock) {
 async function doUpdateCity(source, weatherBlock) {
     const loaderBlock = makeLoaderCityBlock();
     replaceWeatherBlockFromList(weatherBlock, loaderBlock);
-    const result = await getCityWeatherState(source);
+    const result = await getCityRequest(source);
 
     if (result.status === 200) {
-        replaceLoaderBlockWithNewCityBlock(result.weatherState, loaderBlock);
+        replaceLoaderBlockWithNewCityBlock(result, loaderBlock);
     } else if (result.status === 404) {
         updateCityFailure(loaderBlock, weatherBlock);
     } else if (result.status === 429) {

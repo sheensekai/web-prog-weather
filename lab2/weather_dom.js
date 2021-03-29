@@ -46,7 +46,8 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     return weatherBlock;
 }
 
-function makeWeatherBlockFromState(state) {
+function makeWeatherBlockFromResponse(result) {
+    const state = result.weatherState;
     const weatherProperties = getRuPropertyListFromState(state);
     const imgSrc = getIconUrlFromResponseState(state);
     return makeWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);

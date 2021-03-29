@@ -58,12 +58,14 @@ function makeMainWeatherBlock(cityName, tempVal, imgSrc, properties) {
     return mainBlock;
 }
 
-function makeLoaderBlock() {
-    return wtrLoaderElem.cloneNode(true);
+function makeMainWeatherBlockFromState(state) {
+    const weatherProperties = getRuPropertyListFromState(state);
+    const imgSrc = getIconUrlFromResponseState(state);
+    return makeMainWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
 }
 
 function makeLoaderCityBlock() {
-    return makeLoaderBlock();
+    return wtrLoaderElem.cloneNode(true);
 }
 
 function makeLoaderMainBlock() {

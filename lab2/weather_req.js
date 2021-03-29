@@ -7,20 +7,32 @@ async function sendWeatherRequest(params) {
 
     return await fetch(url, {
         "method": method,
-        "headers" : {
+        "headers": {
             "x-rapidapi-key": api_key,
             "x-rapidapi-host": host
-        }});
+        }
+    });
+
+}
+
+async function getWeatherState(params) {
+    const response = sendWeatherRequest(params);
+    let weatherState = null;
+    if (response.status === 200) {
+        const jsonResponse = await response.json();
+        weatherState = getWeatherStateFromResponse(jsonResponse);
+    }
+    return {status: response.status, weatherState: weatherState};
 }
 
 async function getCityByNameRequest(cityName) {
     const params = "?q=" + cityName;
-    return await sendWeatherRequest(params);
+    return await getWeatherState(params);
 }
 
 async function getCityByCoordsRequest(lat, lon) {
     const params = "?lat=" + lat + "&lon=" + lon;
-    return await sendWeatherRequest(params);
+    return await getWeatherState(params);
 }
 
 async function getCityRequest(source) {
@@ -31,21 +43,7 @@ async function getCityRequest(source) {
     }
 }
 
-async function getCityWeatherState(source) {
-    const result = {status: null, weatherState: null};
-    const response = await getCityRequest(source);
-    result.status = response.status;
-    if (result.status === 200) {
-        const jsonResponse = await response.json();
-        result.weatherState = getWeatherStateFromResponse(jsonResponse);
-    }
-    return result;
-}
-
 function getWeatherStateFromResponse(response) {
-    if (response === null) {
-        return null;
-    }
     return {
         "cityName": response.name,
         "temp": Math.round(response.main.temp * 10) / 10,
