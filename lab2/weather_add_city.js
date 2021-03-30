@@ -1,5 +1,7 @@
+let cities;
+
 function replaceLoaderBlockWithNewCityBlock(weatherState, loaderBlock) {
-    const weatherBlock = makeWeatherBlockFromResponse(weatherState);
+    const weatherBlock = makeWeatherBlockFromState(weatherState);
     if (!checkIfWeatherBlockIsAlreadyInList(weatherBlock)) {
         replaceWeatherBlockFromList(loaderBlock, weatherBlock);
     } else {
@@ -24,7 +26,9 @@ async function doAddCity(source) {
     const result = await getCityRequest(source);
 
     if (result.status === 200) {
-        replaceLoaderBlockWithNewCityBlock(result.weatherState, loaderBlock);
+        const weatherState = result.weatherState;
+        replaceLoaderBlockWithNewCityBlock(weatherState, loaderBlock);
+        addCityStateInStorage(weatherState);
     } else if (result.status === 404) {
         addCityFailure(loaderBlock);
     } else if (result.status === 429) {
@@ -58,7 +62,9 @@ async function doUpdateCity(source, weatherBlock) {
     const result = await getCityRequest(source);
 
     if (result.status === 200) {
-        replaceLoaderBlockWithNewCityBlock(result, loaderBlock);
+        const weatherState = result.weatherState;
+        replaceLoaderBlockWithNewCityBlock(weatherState, loaderBlock);
+        addCityStateInStorage(weatherState);
     } else if (result.status === 404) {
         updateCityFailure(loaderBlock, weatherBlock);
     } else if (result.status === 429) {
@@ -67,15 +73,26 @@ async function doUpdateCity(source, weatherBlock) {
 }
 
 function updateCityButtonClick(weatherBlock) {
-    const cityName = weatherBlock.getElementsByClassName("wtr-city-name")[0].innerText;
+    const cityName = getCityName(weatherBlock);
     const source = {byCity: true, cityName: cityName};
     doUpdateCity(source, weatherBlock);
 }
 
-function deleteCitySuccess(weatherBlock) {
+function deleteCityButtonClick(weatherBlock) {
     removeWeatherBlockFromList(weatherBlock);
+    const cityName = getCityName(weatherBlock);
+    removeCityStateFromStorage(cityName);
 }
 
-function deleteCityButtonClick(weatherBlock) {
-    deleteCitySuccess(weatherBlock);
+function doLoadFavouriteCities() {
+    if (!localStorage.hasOwnProperty("favouriteCities")) {
+        cities = {};
+    } else {
+        cities = JSON.parse(localStorage.favouriteCities);
+        for (let cityName in cities) {
+            const weatherState = cities[cityName];
+            const weatherBlock = makeWeatherBlockFromState(weatherState);
+            addWeatherBlockInList(weatherBlock);
+        }
+    }
 }

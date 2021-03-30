@@ -46,8 +46,7 @@ function makeWeatherBlock(cityName, tempVal, imgSrc, properties) {
     return weatherBlock;
 }
 
-function makeWeatherBlockFromResponse(result) {
-    const state = result.weatherState;
+function makeWeatherBlockFromState(state) {
     const weatherProperties = getRuPropertyListFromState(state);
     const imgSrc = getIconUrlFromResponseState(state);
     return makeWeatherBlock(state.cityName, state.temp, imgSrc, weatherProperties);
@@ -85,8 +84,8 @@ function setLoaderForMain() {
 
 function addSeveralWeatherBlocksInList(weatherBlocks) {
     if (weatherBlocks !== null) {
-        for (let block of weatherBlocks) {
-            addWeatherBlockInList(block);
+        for (let weatherBlock of weatherBlocks) {
+            addWeatherBlockInList(weatherBlock);
         }
     }
 }
@@ -110,6 +109,10 @@ function removeWeatherBlockFromList(weatherBlock) {
     if (list.contains(weatherBlock)) {
         list.removeChild(weatherBlock);
     }
+}
+
+function getCityName(weatherBlock) {
+    return weatherBlock.getElementsByClassName("wtr-city-name")[0].innerText;
 }
 
 function replaceWeatherBlockFromList(weatherBlock, newWeatherBlock) {
@@ -141,11 +144,26 @@ function updateMainWeatherBlock(weatherBlock) {
 function checkIfWeatherBlockIsAlreadyInList(weatherBlock) {
     const list = document.getElementById("wtr-blocks-cont");
     const cityNames = list.getElementsByClassName("wtr-city-name");
-    const cityName = weatherBlock.getElementsByClassName("wtr-city-name")[0];
+    const cityName = getCityName(weatherBlock);
     for (let name of cityNames) {
         if (name.innerText === cityName.innerText) {
             return true;
         }
     }
     return false;
+}
+
+function saveStorage() {
+    localStorage.favouriteCities = JSON.stringify(cities);
+}
+
+function addCityStateInStorage(weatherState) {
+    const cityName = weatherState.cityName;
+    cities[cityName] = weatherState;
+    saveStorage();
+}
+
+function removeCityStateFromStorage(cityName) {
+    delete cities[cityName];
+    saveStorage();
 }

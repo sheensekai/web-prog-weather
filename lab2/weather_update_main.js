@@ -45,7 +45,7 @@ function updateMainCityTooManyRequests(loaderBlock, mainBlock) {
 async function doUpdateMainCity(source) {
     const mainBlock = document.getElementsByClassName("wtr-main-block")[0];
     const loaderBlock = setLoaderForMain();
-    const result = await getCityWeatherState(source);
+    const result = await getCityRequest(source);
 
     if (result.status === 200) {
         updateMainCitySuccess(result.weatherState, loaderBlock, mainBlock);
