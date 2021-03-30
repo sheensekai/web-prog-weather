@@ -84,15 +84,40 @@ function deleteCityButtonClick(weatherBlock) {
     removeCityStateFromStorage(cityName);
 }
 
+function addAllSavedCities() {
+    for (let cityName in cities) {
+        const weatherState = cities[cityName];
+        const weatherBlock = makeWeatherBlockFromState(weatherState);
+        addWeatherBlockInList(weatherBlock);
+    }
+}
+
+function makeFavouriteCitiesPromises() {
+    const promises = [];
+    for (let cityName in cities) {
+        const promise = new Promise(async (resolve, reject)  =>  {
+            const result = await getCityByNameRequest(cityName);
+            if (result.status !== 200) {
+                reject();
+            } else {
+                cities[cityName] = result.weatherState;
+                resolve();
+            }
+        });
+        promises.push(promise);
+    }
+    return promises;
+}
+
 function doLoadFavouriteCities() {
     if (!localStorage.hasOwnProperty("favouriteCities")) {
         cities = {};
     } else {
         cities = JSON.parse(localStorage.favouriteCities);
-        for (let cityName in cities) {
-            const weatherState = cities[cityName];
-            const weatherBlock = makeWeatherBlockFromState(weatherState);
-            addWeatherBlockInList(weatherBlock);
-        }
+        const promises = makeFavouriteCitiesPromises();
+
+        Promise.all(promises)
+            .then(() => addAllSavedCities())
+            .catch(() => alert("К сожалению, загрузить сохраненные города не получилось."));
     }
 }
