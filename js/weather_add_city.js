@@ -54,10 +54,10 @@ function updateCityTooManyRequests(loaderBlock, weatherBlock) {
 async function doUpdateCity(cityName, weatherBlock) {
     const loaderBlock = makeLoaderCityBlock();
     replaceWeatherBlockFromList(weatherBlock, loaderBlock);
-    const result = await getFavouriteByNameRequest(cityName)
+    const result = await getFavouritesRequest(cityName)
 
     if (result.status === 200) {
-        replaceLoaderBlockWithNewCityBlock(result.weatherState[0], loaderBlock);
+        replaceLoaderBlockWithNewCityBlock(result.weatherState, loaderBlock);
     } else if (result.status === 404) {
         updateCityFailure(loaderBlock, weatherBlock);
     } else if (result.status === 429) {

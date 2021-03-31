@@ -1,13 +1,14 @@
 async function sendWeatherRequest(endpoint, params, method) {
-    const base = "https://my-nodejs-weather-server.herokuapp.com/weather/";
-    let url = base + endpoint;
+    const url = new URL("https://my-nodejs-weather-server.herokuapp.com/weather/" + endpoint);
     if (params !== null) {
-        url += params;
+        for (let key in params) {
+            url.searchParams.append(key, params[key]);
+        }
     }
-
     const response = await fetch(url, {
         method: method
     });
+
     const result =  {status: response.status, weatherState: null};
     const responseText = await response.text();
     if (result.status === 200 && responseText !== "OK") {
@@ -20,16 +21,12 @@ async function sendWeatherRequest(endpoint, params, method) {
     return result;
 }
 
-async function getFavouriteByNameRequest(cityName) {
-    return await getFavouritesRequest([cityName]);
-}
-
 async function getFavouritesRequest(cityName = null) {
     const endpoint = "favourites";
     const method = "GET";
     let params = null;
-    if (cityName != null) {
-        params = "?cityName=" + cityName;
+    if (cityName !== null) {
+        params = {cityName : cityName};
     }
     return await sendWeatherRequest(endpoint, params, method);
 }
@@ -37,28 +34,28 @@ async function getFavouritesRequest(cityName = null) {
 async function addFavouriteRequest(cityName) {
     const endpoint = "favourites";
     const method = "POST";
-    const params = "?cityName=" + cityName;
+    const params = {cityName : cityName};
     return await sendWeatherRequest(endpoint, params, method);
 }
 
 async function deleteFavouriteRequest(cityName) {
     const endpoint = "favourites";
     const method = "DELETE";
-    const params = "?cityName=" + cityName;
+    const params = {cityName : cityName};
     return await sendWeatherRequest(endpoint, params, method);
 }
 
 async function getCityByNameRequest(cityName) {
     const endpoint = "city";
     const method = "GET";
-    const params = "?cityName=" + cityName;
+    const params = {cityName : cityName};
     return await sendWeatherRequest(endpoint, params, method);
 }
 
 async function getCityByCoordsRequest(lat, lon) {
     const endpoint = "coordinates";
     const method = "GET";
-    const params = "?latitude=" + lat + "&longitude=" + lon;
+    const params = {latitude: lat, longitude: lon};
     return await sendWeatherRequest(endpoint, params, method);
 }
 
