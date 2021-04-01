@@ -146,7 +146,7 @@ function checkIfWeatherBlockIsAlreadyInList(weatherBlock) {
     const cityNames = list.getElementsByClassName("wtr-city-name");
     const cityName = getCityName(weatherBlock);
     for (let name of cityNames) {
-        if (name.innerText === cityName.innerText) {
+        if (name.innerText === cityName) {
             return true;
         }
     }

@@ -20,7 +20,6 @@ document.addEventListener("keyup", function (event) {
 
 document.addEventListener("DOMContentLoaded", () => loadTemplates());
 document.addEventListener("DOMContentLoaded", () => doLoadFavouriteCities());
-// navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
-//     enableHighAccuracy: true
-// });
-
+navigator.geolocation.getCurrentPosition(currentPositionSuccess, currentPositionError, {
+    enableHighAccuracy: true
+});
