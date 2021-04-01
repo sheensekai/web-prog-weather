@@ -1,6 +1,6 @@
 async function sendWeatherRequest(params) {
-    const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric";
-    const api_key = "e314680109mshc428f1d29503e67p19b88cjsn94900fc1e7b7";
+    const url = "https://community-open-weather-map.p.rapidapi.com/weather" + params + "&units=metric&lang=ru";
+    const api_key = "76e83c9996msh3301669dd80d319p145896jsn558cf76c2a22";
     const host = "community-open-weather-map.p.rapidapi.com";
     const method = "GET";
 
