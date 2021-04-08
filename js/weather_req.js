@@ -8,7 +8,7 @@ async function sendWeatherRequest(endpoint, params, method) {
     const response = await fetch(url, {
         method: method
     });
-
+    
     const result =  {status: response.status, weatherState: null};
     const responseText = await response.text();
     if (result.status === 200 && responseText !== "OK") {

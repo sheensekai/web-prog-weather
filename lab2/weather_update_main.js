@@ -22,26 +22,6 @@ function updateMainCitySuccess(weatherState) {
     updateMainWeatherBlock(newMainBlock);
 }
 
-function updateMainCityFailure(loaderBlock, mainBlock) {
-    if (mainBlock !== null) {
-        updateMainWeatherBlock(mainBlock);
-        alert("К сожалению, обновить данные о городе не получилось.")
-    } else {
-        removeMainWeatherBlock(loaderBlock);
-        alert("К сожалению, загрузить данные о городе по вашему месторасположению не получилось.");
-    }
-}
-
-function updateMainCityTooManyRequests(loaderBlock, mainBlock) {
-    if (mainBlock !== null) {
-        updateMainWeatherBlock(mainBlock);
-        alert("К сожалению, обновить данные о городе не получилось, так как был превышен лимит на количество запросов.")
-    } else {
-        removeMainWeatherBlock(loaderBlock);
-        alert("К сожалению, загрузить данные о городе по вашему месторасположению не получилось, так как был превышен лимит на количество запросов.");
-    }
-}
-
 async function doUpdateMainCity(source) {
     const mainBlock = document.getElementsByClassName("wtr-main-block")[0];
     const loaderBlock = setLoaderForMain();
@@ -49,9 +29,12 @@ async function doUpdateMainCity(source) {
 
     if (result.status === 200) {
         updateMainCitySuccess(result.weatherState, loaderBlock, mainBlock);
-    } else if (result.status === 404) {
-        updateMainCityFailure(loaderBlock, mainBlock);
-    } else if (result.status === 429) {
-        updateMainCityTooManyRequests(loaderBlock, mainBlock);
+    } else {
+        if (mainBlock !== null) {
+            updateMainWeatherBlock(mainBlock);
+        } else {
+            removeMainWeatherBlock(loaderBlock);
+        }
+        alert(errorMessage[result.status]);
     }
 }
