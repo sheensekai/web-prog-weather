@@ -1,0 +1,21 @@
+h1, h2, h3 {
+    display: inline;
+    margin: 0;
+}
+
+body, button, input {
+    font-family: Verdana, sans-serif;
+}
+
+header .wtr-list {
+    margin-bottom: 20px;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}

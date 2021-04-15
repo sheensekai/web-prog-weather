@@ -21,7 +21,7 @@ function addCityTooManyRequests(loaderBlock) {
 }
 
 async function doAddCity(source) {
-    const loaderBlock = makeLoaderCityBlock();
+    const loaderBlock = makeLoaderBlock();
     addWeatherBlockInList(loaderBlock);
     const result = await getCityRequest(source);
 
@@ -57,7 +57,7 @@ function updateCityTooManyRequests(loaderBlock, weatherBlock) {
 }
 
 async function doUpdateCity(source, weatherBlock) {
-    const loaderBlock = makeLoaderCityBlock();
+    const loaderBlock = makeLoaderBlock();
     replaceWeatherBlockFromList(weatherBlock, loaderBlock);
     const result = await getCityRequest(source);
 

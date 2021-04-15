@@ -73,7 +73,7 @@ function getRuPropertyListFromState(state) {
     weatherProperties.push({name: "Ветер", value: state.wind + " м/c"});
     weatherProperties.push({name: "Облачность", value: state.clouds + "%"});
     weatherProperties.push({name: "Давление", value: state.pressure + " гПа"});
-    weatherProperties.push({name: "Влаженость", value: state.humidity + "%"});
+    weatherProperties.push({name: "Влажность", value: state.humidity + "%"});
     return weatherProperties;
 }
 

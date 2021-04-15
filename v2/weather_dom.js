@@ -68,10 +68,6 @@ function makeLoaderBlock() {
     return wtrLoaderElem.cloneNode(true);
 }
 
-function makeLoaderCityBlock() {
-    return makeLoaderBlock();
-}
-
 function makeLoaderMainBlock() {
     return wtrMainLoaderElem.cloneNode(true);
 }

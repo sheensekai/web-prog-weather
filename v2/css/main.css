@@ -1,0 +1,54 @@
+.update-block, .main-block, .wtr-header, .wtr-list, #geo-btn-block {
+    display: flex;
+    align-items: center;
+}
+
+.wtr-list {
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.wtr-block {
+    min-width: fit-content;
+    width: 45%;
+    margin: 10px 20px;
+}
+
+#header-block {
+    margin: 10px 20px;
+}
+
+.wtr-header {
+    height: fit-content;
+    min-height: 30px;
+    justify-content: space-between;
+}
+
+.main-block {
+    margin-top: 15px;
+}
+
+.main-block .wtr-temp {
+    margin-left: auto;
+    font-size: 75px;
+}
+
+header h1 {
+    height: 40px;
+}
+
+.func-btn, #city-name-input {
+    height: 32px;
+}
+
+@media screen and (max-width: 1000px) {
+    .wtr-block {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    #header-block {
+        width: 90%;
+        margin: 10px auto;
+    }
+}
